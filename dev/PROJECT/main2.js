@@ -1,10 +1,13 @@
-//DOM-DOCUMent OBJECT MODEL
+ //DOM-DOCUMent OBJECT MODEL                     lect-1jan   
+      
+                      //modifications done in main3
+  
 (function () {
 
     let btn = document.querySelector("#buttonaddfolder");
     let divcontainer = document.querySelector("#container");
     let mytemplates = document.querySelector("#mytemplates");
-    let fid = 0;
+    let fid = -1;
     let folders = [];
 
     btn.addEventListener("click", addfolder);//botton click karne per addfolder folders create karne main help karega
@@ -12,18 +15,42 @@
     //ye function folder banane main help karega addfolderHTML/template/class  ke though
     function addfolder() {
         let fname = prompt("ENTERS FOLDERS NAME");
-        if (!!fname) {//aagr file exist karegi to add kardo folders 
+        if (!!fname) {//aagr file exist karegi to add kardo folders
+
             fid++; //file id bdate jao
+
+            //aagr folder pehle se exist kare to ye karenge 
+            let exist =folders.some(f => f.name == fname);
+            
+            if(exist ==false){ //aaagr idx -ve 1 hua to mtlb file nhi hai pehle se 
+
+                folders.push({ //ye array main push kardo folder ko
+                    id: fid,
+                    name: fname
+                });
             addFolderHTMLToPage(fname, fid);
 
-            folders.push({ //ye array main push kardo folder ko
-                id: fid,
-                name: fname
-            });
+            
             persistdatatostorage(); //data persist karne ke ley jo hamne banaya hai
         }
+        else{
+            alert(fname+ " ALREADY EXIST");   //aaagr file hui to ye aaega likha 
+        }
+       
 
+       
     }
+    else{
+        alert("ENTER VALID NAME ");     //aaagr folder cancel karoge to ye likha aaega
+    }
+
+
+
+        
+
+        }
+
+    
    //ye folder ko edit karne ka function
     function editfolder() {
 
@@ -42,7 +69,7 @@
            folder.name =fname;
             persistdatatostorage();
         }
-
+    
 
     }
 
@@ -53,7 +80,7 @@
         
         //divName.innerhtml is se jo file delete karni hai recent uska name show hoga
        let flag = confirm("DO YOU WANT TO DELETE " + divName.innerHTML);
-       if(flag){//ye true hua to remove kardo
+       if(flag==true){//ye true hua to remove kardo
         divcontainer.removeChild(divfolder);
         let fid =parseInt(divfolder.getAttribute("fid"));//don't know
 
@@ -92,8 +119,8 @@
 
     //ye data ko persist rakhne ka function jo refresh karne ke baad bhi tikka rahe
     function persistdatatostorage() {
-        let fjson =JSON.stringify(folders);//dont know
-       localStorage.setItem("data",fjson); //ye data local main add karne ke ley taaki persist rahega
+        let fjson =JSON.stringify(folders);//ye data ko string main karke store karega local storage main
+       localStorage.setItem("data",fjson); //ye string main karke data local storage main add karne ke ley 
     }
 
     //ye loadDataFromStorage ye kaam karega ki jaab haam page ko refresh karenge 
@@ -104,15 +131,17 @@
             folders = JSON.parse(fjson);//folders ka data ajaega is se load hokar
            
             //ye folders se html ke thorugh data vapis aajaega
-           let maxid=-1;
+           
             folders.forEach(f =>{
-            addFolderHTMLToPage(f.name, f.id);
-            if(f.id >maxid){                               //dont know
-                maxid= f.id;
+           
+            if(f.id >fid){                               //ye iskey karte hai kyuki local storage main file id puri store
+                                                         //jis index per ho us se aage se start ho store karna isley ye karte hai
+                fid= f.id; //fid main daaal do
             }
+            addFolderHTMLToPage(f.name, f.id);
 
         }); 
-                  fid=maxid;
+                
     }
     }
 

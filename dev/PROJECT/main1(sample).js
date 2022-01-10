@@ -1,4 +1,6 @@
 //DOM-DOCUMent OBJECT MODEL                      //lecture-29dec,30dec
+
+                                         //modifications done in main 2
 (function () {
 
   let btn = document.querySelector("#buttonaddfolder");
