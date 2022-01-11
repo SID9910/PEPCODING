@@ -111,7 +111,7 @@
         divName.innerHTML = fname;
         spanEdit.addEventListener("click", editfolder);
         spanDelete.addEventListener("click", deletefolder);
-        divfolder.setAttribute("fid", fid); //dont know
+        divfolder.setAttribute("fid", fid); //ye attribute local storage main id show karne ke ley kaam aata hai
         divcontainer.appendChild(divfolder);
 
 

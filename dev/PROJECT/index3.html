@@ -10,8 +10,12 @@
     <body>
       
        <button id="buttonaddfolder">FIRST BUTTON</button>
-    
-   
+
+       <!-- breadcrumb add karne ka tarika -->
+     <div id ="divbreadCrumb">
+         <a class="path" fid="-1">ROOT</a>
+     </div>
+   <!-- end of breadcrumb -->
        <div id="container">  </div>
     
        
@@ -19,9 +23,13 @@
            <div class ="folder">
                <span action="edit">edit</span>
                <span action="delete">delete</span>
+             <span action="view">view</span>
                <div purpose="name"></div>
     
            </div>
+           <!-- path add karenge breadcrumb ka -->
+           <a class="path"></a>
+           <!-- end of path  -->
        </template>
        <script type="text/javascript" src="main3.js"></script>   
     </body>

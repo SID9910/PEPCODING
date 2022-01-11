@@ -12,6 +12,27 @@
     #buttonaddfolder:hover {
     transform: scale(1.05); 
         }  
+
+
+    #divbreadCrumb{
+        border: 1px solid black;
+        display: flex;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }    
+
+    .path{
+        background-color: grey;
+        color: black;
+        cursor: pointer;
+        padding: 5px;
+        border-right: 3px solid black;
+    }
+    .path:hover{
+        background-color: white;
+        color: blue;
+        text-decoration: underline;
+    }
 #container {
     border: 1px solid black;
     display: flex;
