@@ -1,6 +1,10 @@
 //DOM-DOCUMent OBJECT MODEL                      //lecture-29dec,30dec
 
                                          //modifications done in main 2
+
+                                        //  iifi use karenge -taaaki name space pollution na aay means ki eek file ke changes 
+                                        //dusri files main na dikhai de
+                                        // iifi multiple files main use mainly karte hai haam use
 (function () {
 
   let btn = document.querySelector("#buttonaddfolder");

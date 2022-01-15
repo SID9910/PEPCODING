@@ -62,7 +62,7 @@
             if (nfname != ofname) { //aaagr file pehle se exist karti hogi taab nhi chalega ye
 
                 let exist = folders.filter(f => f.pid == cfid).some(f => f.name == nfname); //aagr new fname exist karega edit vala to already exist kar denge
-                // filter ye karega aaagr parent node  main koi pehle se exist karta hoga to tabhi edit karenge
+                // filter ye karega aaagr parent node  main koi pehle se folder name exist karta hai to folder vapis name same na ho
                 if (exist == false) {
 
                     //RAM
