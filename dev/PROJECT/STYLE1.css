@@ -1,20 +1,19 @@
-/* h1 { */
-/* color:red; */
-/* } */
+
 
 #buttonaddfolder {
     border-radius: 10px;
-     background-color: azure;
+     background-color: red;
      margin-left: 600px;
      width:200px;
      padding: 10px;
-      /* cursor aata hai jaise he button per jaoge aaagr cursoe pointer use karoge to */
+      /* cursor aata hai jaise he button per jaoge aaagr cursor pointer use karoge to */
       cursor: pointer; 
     }
 /* is se button ko hilane ke kaam aaega */
     #buttonaddfolder:hover {
     transform: scale(1.05); 
         }  
+
 #container {
     border: 1px solid black;
     display: flex;
@@ -39,6 +38,7 @@
 }
 
 div [purpose=name]{
+
     margin-top: 50px;
     color: white;
 }

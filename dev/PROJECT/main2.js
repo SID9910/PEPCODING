@@ -1,4 +1,4 @@
- //DOM-DOCUMent OBJECT MODEL                     lect-1jan   
+                                        // lect-1jan   
       
                       //modifications done in main3
   
