@@ -174,7 +174,8 @@
          }
    }
 
-//ye function breadcrumb main jisper jana hoga usper jane main help karega by path
+//ye function breadcrumb main jisper jana hoga usper jane main help karega by path 
+//jaise root per click karenge to bss vo he dikega or kuch nhi path ki help se
    function viewFolderFromPath(){
       let aPath= this;
       let fid=parseInt(aPath.getAttribute("rid")); //is se uss folder ki id aaegi jo chaheye
