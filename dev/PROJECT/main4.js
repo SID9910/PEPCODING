@@ -53,7 +53,40 @@
    }
    //    tfname=text file name 
    function addTextFile() {
-      let tfname = prompt("ENTER TEXT FILE NAME ");
+      let rname = prompt("ENTER TEXT FILE  NAME");
+     
+      //name main space nhi aay isley trim kardo name
+     if(rname !=null){
+      rname = rname.trim();
+     }
+      //empty folder validation
+      if (!rname) {
+         alert("EMPTY NAME IS NOT ALLOWED");
+         return;
+      }
+
+
+      //unique rahe name mtlb same name parent main na save ho
+
+      //haam kya karenge aagar rname aaega dubara to to nhi karenge save and parent id main cfid aaagr equal hue to 
+      //mtln exist karti hai pehle se to taab bhi save nhi karenge folder
+      let alreadyExist = resources.some(r => r.rname == rname && r.pid == cfid);
+      if (alreadyExist == true) {
+         alert(rname + "NAME IS ALREADY IN USE.ENTER ANOTHER NAME");
+         return;
+      }
+
+      let pid = cfid;
+      rid++;//resource id ko ++ karke bedgho  
+      addTextFileHTML(rname, rid, pid);
+      resources.push({
+         rid: rid,
+         rname: rname,
+         rtype: "text-file",
+         pid: cfid
+
+      });
+      saveToStorage();
 
 
 
@@ -64,31 +97,40 @@
       let divfolder = spanDelete.parentNode;
         let divName = divfolder.querySelector("[purpose='name']");
         let fidtbd =divfolder.getAttribute("rid");
+        let fname=divName.innerHTML;
 
-
-
-        let flag = confirm("DO YOU WANT TO DELETE " + divName.innerHTML + "?");
-        if (flag == true) {
-            let exists =folders.some(f => f.pid == fidtbd);
-            if( exists== false){
-            //ram
-            let fidx = folders.findIndex( f => f.id ==fidtbd);
-            //filter don't know
-            folders.splice(fidx, 1);
+  let childrenExists=resources.some(r=>r.pid==fidtbd);
+        let sure= confirm(`ARE YOU SURE YOU WANT TO DELETE ${fname}?`+ (childrenExists?".it also has children.":""));
+        if (!sure) {
+           return;        
+        }
+            
+            
 
             //html
             divContainer.removeChild(divfolder);
 
+            //ram
+            deleteHelper(fidtbd);
+
             //storage
             saveToStorage();
-            }else{
-                alert("CAN'T DELETE .HAS CHILDRENS");
             }
+                
+ //ye deleteHelper he main kaam karega folder ko delete karne main recussion laag rahi hai 
+ //pehel ander ke folder delete hoenge fhir bahar ke 
+      function deleteHelper(fidtbd){
 
-        }
+let children=resources.filter(r=>r.pid == fidtbd);
+for(let i=0;i<children.length;i++){
+   deleteFolder(children[i].rid);//this is capable of delete
+}
+let ridx=resources.findIndex(r=>r.rid ==fidtbd);
+resources.splice(ridx,1);//splice ka kaam badsically ye hai ki vo  eek rid ko hta dega  child  ki 
+      }
+   
 
 
-   }
    function deleteTextFile() {
 
    }
@@ -141,7 +183,7 @@
 
 
    }
-   function renameTextfile() {
+   function renameTextFile() {
 
    }
 
@@ -189,12 +231,20 @@
       cfid=fid; //current folder kardo
       divContainer.innerHTML ="";//khali kardo container
         //is se cureent folder ke ander honge taabhi changes honge
-        for (let i = 0; i < resources.length; i++){
-         if (resources[i].pid == cfid) {
-                      addFolderHTML(resources[i].rname, resources[i].rid, resources[i].pid);
-       
-                   }
-                }
+        
+         for (let i = 0; i < resources.length; i++) {
+         
+            if (resources[i].pid == cfid) {
+               if(resources[i].rtype =="folder"){
+               addFolderHTML(resources[i].rname, resources[i].rid, resources[i].pid);
+               }  else if(resources[i].rtype =="text-file"){
+                  addTextFileHTML(resources[i].rname, resources[i].rid, resources[i].pid);
+                  }
+            }
+      
+             
+            }
+                
 
 
    }
@@ -220,6 +270,28 @@
 
 
    }
+
+   function addTextFileHTML(rname, rid, pid) {
+      let divTextFileTemplate = templates.content.querySelector(".text-file");
+      let divTextFile = document.importNode(divTextFileTemplate, true);
+
+      let spanRename = divTextFile.querySelector("[action=rename]");
+      let spanDelete = divTextFile.querySelector("[action=delete]");
+      let spanView = divTextFile.querySelector("[action=view]");
+      let divName = divTextFile.querySelector("[purpose=name]");
+
+      spanRename.addEventListener("click",renameTextFile);
+      spanDelete.addEventListener("click", deleteTextFile);
+      spanView.addEventListener("click", viewTextFile);
+
+      divName.innerHTML = rname;//aab resource name fname ki tarah work karega
+      divTextFile.setAttribute("rid", rid);//aab attribute set karenge resource id bhi show ho
+      divTextFile.setAttribute("pid", pid); //aab attribute dalenge taaki parent id bhi show ho
+      divContainer.appendChild(divTextFile);
+
+
+
+   }
    function viewTextFile() {
 
    }
@@ -236,21 +308,27 @@
       }
          resources = JSON.parse(rjson); //resources se data lekar load karenge
          for (let i = 0; i < resources.length; i++) {
-            //ye condition hai bss root vale parent folder ko bss dikaho load karne ke baad 
-            //jinka parent id current folder ke barabar hai.means show only root folder after reloading
+            //ye condition hai bss root vale parent folder and text-file ko bss dikaho load karne ke baad 
+            //jinka parent id current folder and text-file ke barabar hai.means show only root folder and text-fileafter reloading
             if (resources[i].pid == cfid) {
+               if(resources[i].rtype == "folder"){
                addFolderHTML(resources[i].rname, resources[i].rid, resources[i].pid);
-
+               }  else if(resources[i].rtype == "text-file"){
+                  addTextFileHTML(resources[i].rname, resources[i].rid, resources[i].pid);
+                  }
             }
-            //ye second conditon hai jaise he load karenge to rid hogi vo aage se start ho naki vapis zero se start ho assign karna
-            if (resources[i].rid > rid) {
-               rid = resources[i].rid;
+      //ye second conditon hai jaise he load karenge to rid hogi vo aage se start ho naki vapis zero se start ho assign karna
+      if (resources[i].rid > rid) {
+         rid = resources[i].rid;
+      }
+             
             }
+            
          }
       
 
 
-   }
+   
    loadfromStorage();
 
 

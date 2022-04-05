@@ -80,6 +80,35 @@
     color: black;
     
 }
+
+
+.text-file{
+    background-color: lightgreen;
+    color: white;
+    height: 120px;
+    width: 200px;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid black;
+    border: transparent;
+    box-shadow: 5px 7px 7px black;
+    color: whitesmoke;
+    
+
+}
+.text-file div[purpose=name]{
+    margin-top: 80px ;
+}
+.text-file [action]{
+    text-decoration: underline;
+    cursor: pointer;
+    
+}
+.text-file [action]:hover{
+    color: black;
+    
+}
 #app {
     border:1px solid black;
     margin: 10px;
