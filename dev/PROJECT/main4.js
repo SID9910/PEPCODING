@@ -3,15 +3,15 @@
    let btnaddTextFile = document.querySelector("#addTextFolder");
    let divbreadCrumb = document.querySelector("#breadCrumb");
    let divContainer = document.querySelector("#container");
-   let aRootPath=divbreadCrumb.querySelector("a[purpose='path']");
+   let aRootPath = divbreadCrumb.querySelector("a[purpose='path']");
    let templates = document.querySelector("#templates");
    let divApp = document.querySelector("#app");
    let divAppTitleBar = document.querySelector("#app-title-bar");
    let divAppTitle = document.querySelector("#app-title");
    let divAppmenuBar = document.querySelector("#app-menu-bar");
    let divAppBody = document.querySelector("#app-body");
-    
- 
+
+
    let resources = []; //isme array main store karenge content
    let cfid = -1; //initial at current root folder -1
    let rid = 0;//resource id ko initial zero lo
@@ -19,78 +19,83 @@
    btnaddTextFile.addEventListener("click", addTextFile);
    aRootPath.addEventListener("click", viewFolderFromPath);
 
-  
 
 
-   function saveNotepad(){
 
-   }
-   function makeNotepadBold(){
-      let textArea=divAppBody.querySelector("textArea");
-      let ispressed=this.getAttribute("pressed") =="true";
-      if(ispressed ==false){
-         this.setAttribute("pressed" ,true);
-         textArea.style.fontWeight ="bold";
+   function makeNotepadBold() {
+      let textArea = divAppBody.querySelector("textArea");
+      let ispressed = this.getAttribute("pressed") == "true";
+      if (ispressed == false) {
+         this.setAttribute("pressed", true);
+         textArea.style.fontWeight = "bold";
 
-      }else{
+      } else {
          this.setAttribute("pressed", false);
-         textArea.style.fontWeight="normal";
+         textArea.style.fontWeight = "normal";
       }
 
 
    }
-   function makeNotepadItalic(){
-      let textArea=divAppBody.querySelector("textArea");
-      let ispressed=this.getAttribute("pressed") =="true";
-      if(ispressed ==false){
-         this.setAttribute("pressed" ,true);
-         textArea.style.fontStyle ="italic";
+   function makeNotepadItalic() {
+      let textArea = divAppBody.querySelector("textArea");
+      let ispressed = this.getAttribute("pressed") == "true";
+      if (ispressed == false) {
+         this.setAttribute("pressed", true);
+         textArea.style.fontStyle = "italic";
 
-      }else{
+      } else {
          this.setAttribute("pressed", false);
-         textArea.style.fontStyle="normal";
+         textArea.style.fontStyle = "normal";
       }
 
 
 
    }
-   function makeNotepadUnderline(){
-      let textArea=divAppBody.querySelector("textArea");
-      let ispressed=this.getAttribute("pressed") =="true";
-      if(ispressed ==false){
-         this.setAttribute("pressed" ,true);
-         textArea.style.textDecoration ="underline";
+   function makeNotepadUnderline() {
+      let textArea = divAppBody.querySelector("textArea");
+      let ispressed = this.getAttribute("pressed") == "true";
+      if (ispressed == false) {
+         this.setAttribute("pressed", true);
+         textArea.style.textDecoration = "underline";
 
-      }else{
+      } else {
          this.setAttribute("pressed", false);
-         textArea.style.textDecoration="normal";
+         textArea.style.textDecoration = "normal";
       }
 
 
    }
-   function chnageNotepadFontSize(){
+
+   //not working
+
+
+   //notepad ke aander ka bg-color kaam sara kaam ye function karega
+   function changeNotepadBGColor() {
+      let color = this.value;
+      let textArea = divAppBody.querySelector("textArea");
+      textArea.style.backgroundColor = color;
 
    }
-   function changeNotepadFontFamily(){
-      let fontFamily=this.value;
-      let textArea=divAppBody.querySelector("textArea");
-      textArea.style.fontFamily=fontFamily;
+
+   function changeNotepadTextColor() {
+      let color = this.value;
+      let textArea = divAppBody.querySelector("textArea");
+      textArea.style.color = color;
 
    }
-//notepad ke aander ka bg-color kaam sara kaam ye function karega
-function changeNotepadBGColor(){
-   let color=this.value;
-   let textArea=divAppBody.querySelector("textArea");
-   textArea.style.backgroundColor=color;
+   function changeNotepadFontFamily() {
+      let fontFamily = this.value;
+      let textArea = divAppBody.querySelector("textArea");
+      textArea.style.fontFamily = fontFamily;
 
-}
+   }
 
-function changeNotepadTextColor(){
-   let color=this.value;
-   let textArea=divAppBody.querySelector("textArea");
-   textArea.style.color=color;
+   function changeNotepadFontSize() {
+      let fontSize = this.value;
+      let textArea = divAppBody.querySelector("textArea");
+      textArea.style.fontSize = fontSize;
 
-}
+   }
 
 
 
@@ -101,11 +106,11 @@ function changeNotepadTextColor(){
    //validations-unique, non-blank
    function addFolder() {
       let rname = prompt("ENTER FOLDER'S NAME");
-     
+
       //name main space nhi aay isley trim kardo name
-     if(rname !=null){
-      rname = rname.trim();
-     }
+      if (rname != null) {
+         rname = rname.trim();
+      }
       //empty folder validation
       if (!rname) {
          alert("EMPTY NAME IS NOT ALLOWED");
@@ -139,11 +144,11 @@ function changeNotepadTextColor(){
    //    tfname=text file name 
    function addTextFile() {
       let rname = prompt("ENTER TEXT FILE  NAME");
-     
+
       //name main space nhi aay isley trim kardo name
-     if(rname !=null){
-      rname = rname.trim();
-     }
+      if (rname != null) {
+         rname = rname.trim();
+      }
       //empty folder validation
       if (!rname) {
          alert("EMPTY NAME IS NOT ALLOWED");
@@ -164,11 +169,29 @@ function changeNotepadTextColor(){
       let pid = cfid;
       rid++;//resource id ko ++ karke bedgho  
       addTextFileHTML(rname, rid, pid);
+
+      resources.isBold = spanBold.getAttribute("pressed") == "true";
+      resources.isItalic = spanItalic.getAttribute("pressed") == "true";
+      resources.isUnderline = spanUnderline.getAttribute("pressed") == "true";
+      resources.bgColor = inputBGColor.value;
+      resources.TextColor = inputTextColor.value;
+      resources.fontFamily = selectFontFamily.value;
+      resources.fontSize = selectFontSize.value;
+      resources.content=textArea.value;
+
       resources.push({
          rid: rid,
          rname: rname,
          rtype: "text-file",
-         pid: cfid
+         pid: cfid,
+         isBold :true,
+         isItalic :false,
+         isUnderline:false,
+         bgColor:"#000000",
+         TextColor:"#FFFFFF",
+         fontFamily:"cursive",
+         fontSize:22,
+            content:"i am a new file."
 
       });
       saveToStorage();
@@ -178,77 +201,77 @@ function changeNotepadTextColor(){
    }
 
    function deleteFolder() {
-      let spanDelete= this;
+      let spanDelete = this;
       let divfolder = spanDelete.parentNode;
-        let divName = divfolder.querySelector("[purpose='name']");
-        let fidtbd =divfolder.getAttribute("rid");
-        let fname=divName.innerHTML;
+      let divName = divfolder.querySelector("[purpose='name']");
+      let fidtbd = divfolder.getAttribute("rid");
+      let fname = divName.innerHTML;
 
-  let childrenExists=resources.some(r=>r.pid==fidtbd);
-        let sure= confirm(`ARE YOU SURE YOU WANT TO DELETE ${fname}?`+ (childrenExists?".it also has children.":""));
-        if (!sure) {
-           return;        
-        }
-            
-            
-
-            //html
-            divContainer.removeChild(divfolder);
-
-            //ram
-            deleteHelper(fidtbd);
-
-            //storage
-            saveToStorage();
-            }
-                
- //ye deleteHelper he main kaam karega folder ko delete karne main recussion laag rahi hai 
- //pehel ander ke folder delete hoenge fhir bahar ke 
-      function deleteHelper(fidtbd){
-
-let children=resources.filter(r=>r.pid == fidtbd);
-for(let i=0;i<children.length;i++){
-   deleteFolder(children[i].rid);//this is capable of delete
-}
-let ridx=resources.findIndex(r=>r.rid ==fidtbd);
-resources.splice(ridx,1);//splice ka kaam badsically ye hai ki vo  eek rid ko hta dega  child  ki 
+      let childrenExists = resources.some(r => r.pid == fidtbd);
+      let sure = confirm(`ARE YOU SURE YOU WANT TO DELETE ${fname}?` + (childrenExists ? ".it also has children." : ""));
+      if (!sure) {
+         return;
       }
-   
+
+
+
+      //html
+      divContainer.removeChild(divfolder);
+
+      //ram
+      deleteHelper(fidtbd);
+
+      //storage
+      saveToStorage();
+   }
+
+   //ye deleteHelper he main kaam karega folder ko delete karne main recussion laag rahi hai 
+   //pehel ander ke folder delete hoenge fhir bahar ke 
+   function deleteHelper(fidtbd) {
+
+      let children = resources.filter(r => r.pid == fidtbd);
+      for (let i = 0; i < children.length; i++) {
+         deleteFolder(children[i].rid);//this is capable of delete
+      }
+      let ridx = resources.findIndex(r => r.rid == fidtbd);
+      resources.splice(ridx, 1);//splice ka kaam badsically ye hai ki vo  eek rid ko hta dega  child  ki 
+   }
+
 
 
    function deleteTextFile() {
-      let spanDelete= this;
+      let spanDelete = this;
       let divTextFile = spanDelete.parentNode;
-        let divName = divTextFile.querySelector("[purpose='name']");
-        let fidtbd =divTextFile.getAttribute("rid");
-        let fname=divName.innerHTML;
+      let divName = divTextFile.querySelector("[purpose='name']");
+      let fidtbd = divTextFile.getAttribute("rid");
+      let fname = divName.innerHTML;
 
- 
-        let sure= confirm(`ARE YOU SURE YOU WANT TO DELETE ${fname}?`);
-        if (!sure) {
-           return;        
-        }
-            
-            
 
-            //html
-            divContainer.removeChild(divTextFile);
+      let sure = confirm(`ARE YOU SURE YOU WANT TO DELETE ${fname}?`);
+      if (!sure) {
+         return;
+      }
 
-            //ram
-            let ridx= resources.findIndex(r => r.rid == fidtbd);
-            resources.splice(ridx,1);
 
-            //storage
-            saveToStorage();
+
+      //html
+      divContainer.removeChild(divTextFile);
+
+      //ram
+      let ridx = resources.findIndex(r => r.rid == fidtbd);
+      resources.splice(ridx, 1);
+
+      //storage
+      saveToStorage();
 
    }
    function renameFolder() {
       let nrname = prompt("ENTER  NEW FOLDER'S NAME");//nrname(new resource name)
-     
+
       //name main space nhi aay isley trim kardo name
-     if(nrname != null){
-      nrname = nrname.trim();
-     }
+      if (nrname != null) {
+         nrname = nrname.trim();
+      }
       //empty folder validation
       if (!nrname) {
          alert("EMPTY NAME IS NOT ALLOWED");
@@ -256,147 +279,147 @@ resources.splice(ridx,1);//splice ka kaam badsically ye hai ki vo  eek rid ko ht
       }
 
       let spanRename = this;  //is se span main jakar folder ke ander ko this bolte hai
-      let divFolder=spanRename.parentNode; //div ke ander jakar folder ko parent bolenge span rename ka
+      let divFolder = spanRename.parentNode; //div ke ander jakar folder ko parent bolenge span rename ka
       let divName = divFolder.querySelector("[purpose=name]");//div folder se uska name nikal lenge
-      let orname= divName.innerHTML; //orname(old resource name ) div folder ke ander se jakar purana name nikalega ye
-       
+      let orname = divName.innerHTML; //orname(old resource name ) div folder ke ander se jakar purana name nikalega ye
+
       //ribTBU(resource name to be edited) ye haam rid nikalenge taaki us id ka
       //use karke ham uska rename kar sake
-       let ribTBU =parseInt(divFolder.getAttribute("rid"));
-       if(nrname == orname ){
-          alert("THIS NAME ALREADY EXIST .TRY ANOTHER NAME");
-          return;
-       }
-      
-       //aab haam check karenge ye jo edit karenge uska name bhi pehle se to exist nhi karta
-       //to usper alreadyExist vali condition jagenge jo pehle use kari thi
-       let alreadyExist = resources.some(r => r.rname == nrname && r.pid == cfid);
-       if (alreadyExist == true) {
-          alert(nrname + "NAME IS ALREADY IN USE.ENTER ANOTHER NAME");
-          return;
-       }
+      let ribTBU = parseInt(divFolder.getAttribute("rid"));
+      if (nrname == orname) {
+         alert("THIS NAME ALREADY EXIST .TRY ANOTHER NAME");
+         return;
+      }
 
-       //change karenge html main
-       divName.innerHTML=nrname;
+      //aab haam check karenge ye jo edit karenge uska name bhi pehle se to exist nhi karta
+      //to usper alreadyExist vali condition jagenge jo pehle use kari thi
+      let alreadyExist = resources.some(r => r.rname == nrname && r.pid == cfid);
+      if (alreadyExist == true) {
+         alert(nrname + "NAME IS ALREADY IN USE.ENTER ANOTHER NAME");
+         return;
+      }
 
-       //change ram
-       //find se haam jis resource per pehle vo folder ka name tha .us he id per haam rname karenge
-       //taaki dubara id nhi bane resource ki us name per
-      let resource= resources.find(r => r.rid == ribTBU);
-      resource.rname=nrname;
+      //change karenge html main
+      divName.innerHTML = nrname;
 
-       //change storage
-       saveToStorage();
-       
+      //change ram
+      //find se haam jis resource per pehle vo folder ka name tha .us he id per haam rname karenge
+      //taaki dubara id nhi bane resource ki us name per
+      let resource = resources.find(r => r.rid == ribTBU);
+      resource.rname = nrname;
+
+      //change storage
+      saveToStorage();
+
 
 
    }
    function renameTextFile() {
       let nrname = prompt("ENTER  NEW FILE'S NAME");//nrname(new resource name)
-     
+
       //name main space nhi aay isley trim kardo name
-     if(nrname != null){
-      nrname = nrname.trim();
-     }
+      if (nrname != null) {
+         nrname = nrname.trim();
+      }
       //empty folder validation
       if (!nrname) {
          alert("EMPTY NAME IS NOT ALLOWED");
          return;
       }
 
-      let spanRename = this;  
-            let divTextFile=spanRename.parentNode; //div ke ander jakar folder ko parent bolenge span rename ka
+      let spanRename = this;
+      let divTextFile = spanRename.parentNode; //div ke ander jakar folder ko parent bolenge span rename ka
       let divName = divTextFile.querySelector("[purpose=name]");
-            let orname= divName.innerHTML; //orname(old resource name ) div folder ke ander se jakar purana name nikalega ye
-       
-      
-       let ribTBU =parseInt(divTextFile.getAttribute("rid"));
-       if(nrname == orname ){
-          alert("THIS NAME ALREADY EXIST .TRY ANOTHER NAME");
-          return;
-       }
-      
-       //aab haam check karenge ye jo edit karenge uska name bhi pehle se to exist nhi karta
-       //to usper alreadyExist vali condition jagenge jo pehle use kari thi
-       let alreadyExist = resources.some(r => r.rname == nrname && r.pid == cfid);
-       if (alreadyExist == true) {
-          alert(nrname + "NAME IS ALREADY IN USE.ENTER ANOTHER NAME");
-          return;
-       }
+      let orname = divName.innerHTML; //orname(old resource name ) div folder ke ander se jakar purana name nikalega ye
 
-       //change karenge html main
-       divName.innerHTML=nrname;
 
-       //change ram
-       //find se haam jis resource per pehle vo folder ka name tha .us he id per haam rname karenge
-       //taaki dubara id nhi bane resource ki us name per
-      let resource= resources.find(r => r.rid == ribTBU);
-      resource.rname=nrname;
+      let ribTBU = parseInt(divTextFile.getAttribute("rid"));
+      if (nrname == orname) {
+         alert("THIS NAME ALREADY EXIST .TRY ANOTHER NAME");
+         return;
+      }
 
-       //change storage
-       saveToStorage();
-       
+      //aab haam check karenge ye jo edit karenge uska name bhi pehle se to exist nhi karta
+      //to usper alreadyExist vali condition jagenge jo pehle use kari thi
+      let alreadyExist = resources.some(r => r.rname == nrname && r.pid == cfid);
+      if (alreadyExist == true) {
+         alert(nrname + "NAME IS ALREADY IN USE.ENTER ANOTHER NAME");
+         return;
+      }
+
+      //change karenge html main
+      divName.innerHTML = nrname;
+
+      //change ram
+      //find se haam jis resource per pehle vo folder ka name tha .us he id per haam rname karenge
+      //taaki dubara id nhi bane resource ki us name per
+      let resource = resources.find(r => r.rid == ribTBU);
+      resource.rname = nrname;
+
+      //change storage
+      saveToStorage();
+
 
    }
 
    //view ke ander ka kaam
    function viewFolder() {
-      let spanView=this;
-      let divFolder=spanView.parentNode; //folder ke ander aajenge is se span view ke
-      let divName=divFolder.querySelector("[purpose='name']"); //name aajaega folder ka
+      let spanView = this;
+      let divFolder = spanView.parentNode; //folder ke ander aajenge is se span view ke
+      let divName = divFolder.querySelector("[purpose='name']"); //name aajaega folder ka
 
-      let fname=divName.innerHTML;//folder name aajaega is se
-      let fid=parseInt(divFolder.getAttribute("rid"));//is se resource ki id aajegi us  folder id main
+      let fname = divName.innerHTML;//folder name aajaega is se
+      let fid = parseInt(divFolder.getAttribute("rid"));//is se resource ki id aajegi us  folder id main
 
-      let apathTemplate=templates.content.querySelector("a[purpose='path']"); //path le lenge is se
-      let apth=document.importNode(apathTemplate, true); //clone of apathtemplete
- 
-      apth.innerHTML=fname; //path main us folder ka name daal denge
-      apth.setAttribute("rid",fid);//id daal denge vo vali jis me honge
+      let apathTemplate = templates.content.querySelector("a[purpose='path']"); //path le lenge is se
+      let apth = document.importNode(apathTemplate, true); //clone of apathtemplete
+
+      apth.innerHTML = fname; //path main us folder ka name daal denge
+      apth.setAttribute("rid", fid);//id daal denge vo vali jis me honge
       apth.addEventListener("click", viewFolderFromPath); //ye call karenge taaki us directory per aajay jo chaheye
       divbreadCrumb.appendChild(apth); //breadcrumb main daal denge
 
-      cfid=fid; //aab current folder main jis folder main hai vo daal denge
-      divContainer.innerHTML="";//container khali kar denge jaise he kisi ke ander view ke amder enter karenge to
- 
-      //is se cureent folder ke ander honge taabhi changes honge
-      for (let i = 0; i < resources.length; i++){
-  if (resources[i].pid == cfid) {
-               addFolderHTML(resources[i].rname, resources[i].rid, resources[i].pid);
+      cfid = fid; //aab current folder main jis folder main hai vo daal denge
+      divContainer.innerHTML = "";//container khali kar denge jaise he kisi ke ander view ke amder enter karenge to
 
-            }
+      //is se cureent folder ke ander honge taabhi changes honge
+      for (let i = 0; i < resources.length; i++) {
+         if (resources[i].pid == cfid) {
+            addFolderHTML(resources[i].rname, resources[i].rid, resources[i].pid);
+
          }
+      }
    }
 
-//ye function breadcrumb main jisper jana hoga usper jane main help karega by path 
-//jaise root per click karenge to bss vo he dikega or kuch nhi path ki help se
-   function viewFolderFromPath(){
-      let aPath= this;
-      let fid=parseInt(aPath.getAttribute("rid")); //is se uss folder ki id aaegi jo chaheye
+   //ye function breadcrumb main jisper jana hoga usper jane main help karega by path 
+   //jaise root per click karenge to bss vo he dikega or kuch nhi path ki help se
+   function viewFolderFromPath() {
+      let aPath = this;
+      let fid = parseInt(aPath.getAttribute("rid")); //is se uss folder ki id aaegi jo chaheye
 
       //set the breadcrumb
-      while(aPath.nextSibling){
+      while (aPath.nextSibling) {
          aPath.parentNode.removeChild(aPath.nextSibling); //is se jonsa directory chaheye uske aajava baaki ke aage ke bhta dega 
       }
 
       //set the container
-      cfid=fid; //current folder kardo
-      divContainer.innerHTML ="";//khali kardo container
-        //is se cureent folder ke ander honge taabhi changes honge
-        
-         for (let i = 0; i < resources.length; i++) {
-         
-            if (resources[i].pid == cfid) {
-               if(resources[i].rtype =="folder"){
+      cfid = fid; //current folder kardo
+      divContainer.innerHTML = "";//khali kardo container
+      //is se cureent folder ke ander honge taabhi changes honge
+
+      for (let i = 0; i < resources.length; i++) {
+
+         if (resources[i].pid == cfid) {
+            if (resources[i].rtype == "folder") {
                addFolderHTML(resources[i].rname, resources[i].rid, resources[i].pid);
-               }  else if(resources[i].rtype =="text-file"){
-                  addTextFileHTML(resources[i].rname, resources[i].rid, resources[i].pid);
-                  }
+            } else if (resources[i].rtype == "text-file") {
+               addTextFileHTML(resources[i].rname, resources[i].rid, resources[i].pid);
             }
-      
-             
-            }
-                
+         }
+
+
+      }
+
 
 
    }
@@ -432,7 +455,7 @@ resources.splice(ridx,1);//splice ka kaam badsically ye hai ki vo  eek rid ko ht
       let spanView = divTextFile.querySelector("[action=view]");
       let divName = divTextFile.querySelector("[purpose=name]");
 
-      spanRename.addEventListener("click",renameTextFile);
+      spanRename.addEventListener("click", renameTextFile);
       spanDelete.addEventListener("click", deleteTextFile);
       spanView.addEventListener("click", viewTextFile);
 
@@ -445,43 +468,164 @@ resources.splice(ridx,1);//splice ka kaam badsically ye hai ki vo  eek rid ko ht
 
    }
    function viewTextFile() {
-      let spanView=this;
-      let divTextFile=spanView.parentNode;
-      let divName=divTextFile.querySelector("[purpose=name]");
-      let fname=divName.innerHTML;
-      let fid=parseInt(divTextFile.getAttribute("rid"));
-      
-      let divNotepadMenuTemplate=templates.content.querySelector("[purpose=notepad-menu]");
-      let divNotepadmenu=document.importNode(divNotepadMenuTemplate,true);
-      divAppmenuBar.innerHTML="";
+      let spanView = this;
+      let divTextFile = spanView.parentNode;
+      let divName = divTextFile.querySelector("[purpose=name]");
+      let fname = divName.innerHTML;
+      let fid = parseInt(divTextFile.getAttribute("rid"));
+
+      let divNotepadMenuTemplate = templates.content.querySelector("[purpose=notepad-menu]");
+      let divNotepadmenu = document.importNode(divNotepadMenuTemplate, true);
+      divAppmenuBar.innerHTML = "";
       divAppmenuBar.appendChild(divNotepadmenu);
 
-      let divNotepadBodyTemplate=templates.content.querySelector("[purpose=notepad-body]");
-      let divNotepadbody=document.importNode(divNotepadBodyTemplate,true);
-      divAppBody.innerHTML="";
+      let divNotepadBodyTemplate = templates.content.querySelector("[purpose=notepad-body]");
+      let divNotepadbody = document.importNode(divNotepadBodyTemplate, true);
+      divAppBody.innerHTML = "";
       divAppBody.appendChild(divNotepadbody);
-  divAppTitle.innerHTML=fname;
+      divAppTitle.innerHTML = fname;
+      divAppTitle.setAttribute("rid", fid);
 
-  //ye sara kaam notepad ke ley ho rha hai
-  let spanSave=divAppmenuBar.querySelector("[action=save]");
-  let spanBold=divAppmenuBar.querySelector("[action=bold]");
-  let spanItalic=divAppmenuBar.querySelector("[action=italic]");
-  let spanUnderline=divAppmenuBar.querySelector("[action=underline]");
-  let inputBGColor=divAppmenuBar.querySelector("[action=bg-color]");
-  let inputTextColor=divAppmenuBar.querySelector("[action=fg-color]");
-  let selectFontFamily=divAppmenuBar.querySelector("[action=font-family]");
-  let selectFontSize=divAppmenuBar.querySelector("[action=font-size]");
+      //ye sara kaam notepad ke ley ho rha hai
+      let spanSave = divAppmenuBar.querySelector("[action=save]");
+      let spanBold = divAppmenuBar.querySelector("[action=bold]");
+      let spanItalic = divAppmenuBar.querySelector("[action=italic]");
+      let spanUnderline = divAppmenuBar.querySelector("[action=underline]");
+      let inputBGColor = divAppmenuBar.querySelector("[action=bg-color]");
+      let inputTextColor = divAppmenuBar.querySelector("[action=fg-color]");
+      let selectFontFamily = divAppmenuBar.querySelector("[action=font-family]");
+      let selectFontSize = divAppmenuBar.querySelector("[action=font-size]");
 
-  
-  spanSave.addEventListener("click",saveNotepad);
-  spanBold.addEventListener("click",makeNotepadBold);
-  spanItalic.addEventListener("click",makeNotepadItalic);
-  spanUnderline.addEventListener("click",makeNotepadUnderline);
-  inputBGColor.addEventListener("change",changeNotepadBGColor);
-  inputTextColor.addEventListener("change",changeNotepadTextColor);
-  selectFontFamily.addEventListener("change",changeNotepadFontFamily);
-  selectFontSize.addEventListener("change",chnageNotepadFontSize);
+
+      spanSave.addEventListener("click", saveNotepad);
+      spanBold.addEventListener("click", makeNotepadBold);
+      spanItalic.addEventListener("click", makeNotepadItalic);
+      spanUnderline.addEventListener("click", makeNotepadUnderline);
+      inputBGColor.addEventListener("change", changeNotepadBGColor);
+      inputTextColor.addEventListener("change", changeNotepadTextColor);
+      selectFontFamily.addEventListener("change", changeNotepadFontFamily);
+      selectFontSize.addEventListener("change", changeNotepadFontSize);
+      
+      let resource = resources.find(r => r.rid = fid);
+       spanBold.setAttribute("pressed",!resource.isBold);
+       spanItalic.setAttribute("pressed",!resource.isItalic);
+       spanUnderline.setAttribute("pressed",!resource.isUnderline);
+       inputBGColor.value=resource.bgColor;
+       inputTextColor.value=resource.inputTextColor;
+       selectFontFamily.value=resource.fontFamily;
+       selectFontSize.value=resource.fontSize;
+       textArea.value=resource.content;
+
+       spanBold.dispatchEvent(new Event("click"));
+       spanItalic.dispatchEvent(new Event("click"));
+       spanUnderline.dispatchEvent(new Event("click"));
+       inputBGColor.dispatchEvent(new Event("change"));
+       inputTextColor.dispatchEvent(new Event("change"));
+       selectFontFamily.dispatchEvent(new Event("change"));
+       selectFontSize.dispatchEvent(new Event("change"));
+
    }
+
+
+   function saveNotepad() {
+      let fid = parseInt(divAppTitle.getAttribute("rid"));
+      let resource = resources.find(r => r.rid = fid);
+      let spanSave = divAppmenuBar.querySelector("[action=save]");
+      let spanBold = divAppmenuBar.querySelector("[action=bold]");
+      let spanItalic = divAppmenuBar.querySelector("[action=italic]");
+      let spanUnderline = divAppmenuBar.querySelector("[action=underline]");
+      let inputBGColor = divAppmenuBar.querySelector("[action=bg-color]");
+      let inputTextColor = divAppmenuBar.querySelector("[action=fg-color]");
+      let selectFontFamily = divAppmenuBar.querySelector("[action=font-family]");
+      let selectFontSize = divAppmenuBar.querySelector("[action=font-size]");
+
+      resources.isBold = spanBold.getAttribute("pressed") == "true";
+      resources.isItalic = spanItalic.getAttribute("pressed") == "true";
+      resources.isUnderline = spanUnderline.getAttribute("pressed") == "true";
+      resources.bgColor = inputBGColor.value;
+      resources.TextColor = inputTextColor.value;
+      resources.fontFamily = selectFontFamily.value;
+      resources.fontSize = selectFontSize.value;
+      resources.content=textArea.value;
+
+      saveToStorage();
+   }
+
+   function makeNotepadBold() {
+      let textArea = divAppBody.querySelector("textArea");
+      let ispressed = this.getAttribute("pressed") == "true";
+      if (ispressed == false) {
+         this.setAttribute("pressed", true);
+         textArea.style.fontWeight = "bold";
+
+      } else {
+         this.setAttribute("pressed", false);
+         textArea.style.fontWeight = "normal";
+      }
+
+
+   }
+   function makeNotepadItalic() {
+      let textArea = divAppBody.querySelector("textArea");
+      let ispressed = this.getAttribute("pressed") == "true";
+      if (ispressed == false) {
+         this.setAttribute("pressed", true);
+         textArea.style.fontStyle = "italic";
+
+      } else {
+         this.setAttribute("pressed", false);
+         textArea.style.fontStyle = "normal";
+      }
+
+
+
+   }
+   function makeNotepadUnderline() {
+      let textArea = divAppBody.querySelector("textArea");
+      let ispressed = this.getAttribute("pressed") == "true";
+      if (ispressed == false) {
+         this.setAttribute("pressed", true);
+         textArea.style.textDecoration = "underline";
+
+      } else {
+         this.setAttribute("pressed", false);
+         textArea.style.textDecoration = "normal";
+      }
+
+
+   }
+
+   //not working
+
+
+   //notepad ke aander ka bg-color kaam sara kaam ye function karega
+   function changeNotepadBGColor() {
+      let color = this.value;
+      let textArea = divAppBody.querySelector("textArea");
+      textArea.style.backgroundColor = color;
+
+   }
+
+   function changeNotepadTextColor() {
+      let color = this.value;
+      let textArea = divAppBody.querySelector("textArea");
+      textArea.style.color = color;
+
+   }
+   function changeNotepadFontFamily() {
+      let fontFamily = this.value;
+      let textArea = divAppBody.querySelector("textArea");
+      textArea.style.fontFamily = fontFamily;
+
+   }
+
+   function changeNotepadFontSize() {
+      let fontSize = this.value;
+      let textArea = divAppBody.querySelector("textArea");
+      textArea.style.fontSize = fontSize;
+
+   }
+
    //rjson(resource json)
    function saveToStorage() {
       let rjson = JSON.stringify(resources); //local storage main data main show hoga string ki form main
@@ -493,29 +637,29 @@ resources.splice(ridx,1);//splice ka kaam badsically ye hai ki vo  eek rid ko ht
       if (!rjson) {
          return;
       }
-         resources = JSON.parse(rjson); //resources se data lekar load karenge
-         for (let i = 0; i < resources.length; i++) {
-            //ye condition hai bss root vale parent folder and text-file ko bss dikaho load karne ke baad 
-            //jinka parent id current folder and text-file ke barabar hai.means show only root folder and text-fileafter reloading
-            if (resources[i].pid == cfid) {
-               if(resources[i].rtype == "folder"){
+      resources = JSON.parse(rjson); //resources se data lekar load karenge
+      for (let i = 0; i < resources.length; i++) {
+         //ye condition hai bss root vale parent folder and text-file ko bss dikaho load karne ke baad 
+         //jinka parent id current folder and text-file ke barabar hai.means show only root folder and text-fileafter reloading
+         if (resources[i].pid == cfid) {
+            if (resources[i].rtype == "folder") {
                addFolderHTML(resources[i].rname, resources[i].rid, resources[i].pid);
-               }  else if(resources[i].rtype == "text-file"){
-                  addTextFileHTML(resources[i].rname, resources[i].rid, resources[i].pid);
-                  }
+            } else if (resources[i].rtype == "text-file") {
+               addTextFileHTML(resources[i].rname, resources[i].rid, resources[i].pid);
             }
-      //ye second conditon hai jaise he load karenge to rid hogi vo aage se start ho naki vapis zero se start ho assign karna
-      if (resources[i].rid > rid) {
-         rid = resources[i].rid;
-      }
-             
-            }
-            
          }
-      
+         //ye second conditon hai jaise he load karenge to rid hogi vo aage se start ho naki vapis zero se start ho assign karna
+         if (resources[i].rid > rid) {
+            rid = resources[i].rid;
+         }
+
+      }
+
+   }
 
 
-   
+
+
    loadfromStorage();
 
 
