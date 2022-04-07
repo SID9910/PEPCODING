@@ -110,7 +110,67 @@
     
 }
 #app {
-    border:1px solid black;
+    border:2px solid gray;
     margin: 10px;
-    padding: 10px;
+    
+}
+
+#app-title-bar {
+    display: flex;
+    background-color: darkgray;
+    height: 40px;
+    
+}
+#app-title {
+    width: 92%;
+    text-align: center;
+    
+}
+#app-menu-bar {
+    display: flex;
+    background-color: lightgrey;
+    height: 40px;
+    
+}
+#app-body {
+    display: flex;
+    background-color: lightcyan;
+    height: 500px;
+    
+}
+.notepad-body {
+height: 100%;
+width: 100%;
+}
+.notepad-body textarea {
+    height: 100%;
+    width: 100%;  
+}
+.notepad-menu * {
+    margin: 0px 5px;
+    
+    cursor: pointer;
+    border: 2px solid white;
+    
+}
+.notepad-menu span{
+   vertical-align: bottom;
+}
+.notepad-menu span:hover {
+    
+    background-color: white;
+    
+}
+.notepad-menu input[type=color] {
+    width: 30px;
+    
+}
+.notepad-menu select {
+   height: 30px;
+}
+
+.notrpad-menu [pressed=true]{
+    border:2px solid black;
+    background-color: white;
+    
 }
