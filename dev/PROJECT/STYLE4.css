@@ -146,6 +146,10 @@ width: 100%;
     height: 100%;
     width: 100%;  
 }
+.notepad-menu {
+    
+    padding: 5px;
+}
 .notepad-menu * {
     margin: 0px 5px;
     
@@ -169,7 +173,7 @@ width: 100%;
    height: 30px;
 }
 
-.notrpad-menu [pressed=true]{
+.notepad-menu [pressed=true]{
     border:2px solid black;
     background-color: white;
     

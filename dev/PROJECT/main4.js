@@ -4,100 +4,20 @@
    let divbreadCrumb = document.querySelector("#breadCrumb");
    let divContainer = document.querySelector("#container");
    let aRootPath = divbreadCrumb.querySelector("a[purpose='path']");
-   let templates = document.querySelector("#templates");
+  
    let divApp = document.querySelector("#app");
    let divAppTitleBar = document.querySelector("#app-title-bar");
    let divAppTitle = document.querySelector("#app-title");
    let divAppmenuBar = document.querySelector("#app-menu-bar");
    let divAppBody = document.querySelector("#app-body");
 
-
+   let templates = document.querySelector("#templates");
    let resources = []; //isme array main store karenge content
    let cfid = -1; //initial at current root folder -1
    let rid = 0;//resource id ko initial zero lo
    btnaddFolder.addEventListener("click", addFolder);
    btnaddTextFile.addEventListener("click", addTextFile);
    aRootPath.addEventListener("click", viewFolderFromPath);
-
-
-
-
-   function makeNotepadBold() {
-      let textArea = divAppBody.querySelector("textArea");
-      let ispressed = this.getAttribute("pressed") == "true";
-      if (ispressed == false) {
-         this.setAttribute("pressed", true);
-         textArea.style.fontWeight = "bold";
-
-      } else {
-         this.setAttribute("pressed", false);
-         textArea.style.fontWeight = "normal";
-      }
-
-
-   }
-   function makeNotepadItalic() {
-      let textArea = divAppBody.querySelector("textArea");
-      let ispressed = this.getAttribute("pressed") == "true";
-      if (ispressed == false) {
-         this.setAttribute("pressed", true);
-         textArea.style.fontStyle = "italic";
-
-      } else {
-         this.setAttribute("pressed", false);
-         textArea.style.fontStyle = "normal";
-      }
-
-
-
-   }
-   function makeNotepadUnderline() {
-      let textArea = divAppBody.querySelector("textArea");
-      let ispressed = this.getAttribute("pressed") == "true";
-      if (ispressed == false) {
-         this.setAttribute("pressed", true);
-         textArea.style.textDecoration = "underline";
-
-      } else {
-         this.setAttribute("pressed", false);
-         textArea.style.textDecoration = "normal";
-      }
-
-
-   }
-
-   //not working
-
-
-   //notepad ke aander ka bg-color kaam sara kaam ye function karega
-   function changeNotepadBGColor() {
-      let color = this.value;
-      let textArea = divAppBody.querySelector("textArea");
-      textArea.style.backgroundColor = color;
-
-   }
-
-   function changeNotepadTextColor() {
-      let color = this.value;
-      let textArea = divAppBody.querySelector("textArea");
-      textArea.style.color = color;
-
-   }
-   function changeNotepadFontFamily() {
-      let fontFamily = this.value;
-      let textArea = divAppBody.querySelector("textArea");
-      textArea.style.fontFamily = fontFamily;
-
-   }
-
-   function changeNotepadFontSize() {
-      let fontSize = this.value;
-      let textArea = divAppBody.querySelector("textArea");
-      textArea.style.fontSize = fontSize;
-
-   }
-
-
 
 
 
@@ -170,6 +90,7 @@
       rid++;//resource id ko ++ karke bedgho  
       addTextFileHTML(rname, rid, pid);
 
+      //ye hissa hataya ja sakta hai
       resources.isBold = spanBold.getAttribute("pressed") == "true";
       resources.isItalic = spanItalic.getAttribute("pressed") == "true";
       resources.isUnderline = spanUnderline.getAttribute("pressed") == "true";
@@ -265,6 +186,9 @@
       saveToStorage();
 
    }
+
+   
+
    function renameFolder() {
       let nrname = prompt("ENTER  NEW FOLDER'S NAME");//nrname(new resource name)
 
@@ -362,6 +286,8 @@
 
    }
 
+   
+
    //view ke ander ka kaam
    function viewFolder() {
       let spanView = this;
@@ -423,50 +349,8 @@
 
 
    }
-   //rid(resource id),rname(resource name),pid(parent id)
-   function addFolderHTML(rname, rid, pid) {
-      let divFolderTemplate = templates.content.querySelector(".folder");
-      let divFolder = document.importNode(divFolderTemplate, true);
-
-      let spanRename = divFolder.querySelector("[action=rename]");
-      let spanDelete = divFolder.querySelector("[action=delete]");
-      let spanView = divFolder.querySelector("[action=view]");
-      let divName = divFolder.querySelector("[purpose=name]");
-
-      spanRename.addEventListener("click", renameFolder);
-      spanDelete.addEventListener("click", deleteFolder);
-      spanView.addEventListener("click", viewFolder);
-
-      divName.innerHTML = rname;//aab resource name fname ki tarah work karega
-      divFolder.setAttribute("rid", rid);//aab attribute set karenge resource id bhi show ho
-      divFolder.setAttribute("pid", pid); //aab attribute dalenge taaki parent id bhi show ho
-      divContainer.appendChild(divFolder);
 
 
-
-   }
-
-   function addTextFileHTML(rname, rid, pid) {
-      let divTextFileTemplate = templates.content.querySelector(".text-file");
-      let divTextFile = document.importNode(divTextFileTemplate, true);
-
-      let spanRename = divTextFile.querySelector("[action=rename]");
-      let spanDelete = divTextFile.querySelector("[action=delete]");
-      let spanView = divTextFile.querySelector("[action=view]");
-      let divName = divTextFile.querySelector("[purpose=name]");
-
-      spanRename.addEventListener("click", renameTextFile);
-      spanDelete.addEventListener("click", deleteTextFile);
-      spanView.addEventListener("click", viewTextFile);
-
-      divName.innerHTML = rname;//aab resource name fname ki tarah work karega
-      divTextFile.setAttribute("rid", rid);//aab attribute set karenge resource id bhi show ho
-      divTextFile.setAttribute("pid", pid); //aab attribute dalenge taaki parent id bhi show ho
-      divContainer.appendChild(divTextFile);
-
-
-
-   }
    function viewTextFile() {
       let spanView = this;
       let divTextFile = spanView.parentNode;
@@ -495,7 +379,7 @@
       let inputTextColor = divAppmenuBar.querySelector("[action=fg-color]");
       let selectFontFamily = divAppmenuBar.querySelector("[action=font-family]");
       let selectFontSize = divAppmenuBar.querySelector("[action=font-size]");
-
+      let textArea=divAppBody.querySelector("textArea");
 
       spanSave.addEventListener("click", saveNotepad);
       spanBold.addEventListener("click", makeNotepadBold);
@@ -511,7 +395,7 @@
        spanItalic.setAttribute("pressed",!resource.isItalic);
        spanUnderline.setAttribute("pressed",!resource.isUnderline);
        inputBGColor.value=resource.bgColor;
-       inputTextColor.value=resource.inputTextColor;
+       inputTextColor.value=resource.textColor;
        selectFontFamily.value=resource.fontFamily;
        selectFontSize.value=resource.fontSize;
        textArea.value=resource.content;
@@ -526,11 +410,10 @@
 
    }
 
-
    function saveNotepad() {
       let fid = parseInt(divAppTitle.getAttribute("rid"));
       let resource = resources.find(r => r.rid = fid);
-      let spanSave = divAppmenuBar.querySelector("[action=save]");
+     
       let spanBold = divAppmenuBar.querySelector("[action=bold]");
       let spanItalic = divAppmenuBar.querySelector("[action=italic]");
       let spanUnderline = divAppmenuBar.querySelector("[action=underline]");
@@ -538,18 +421,23 @@
       let inputTextColor = divAppmenuBar.querySelector("[action=fg-color]");
       let selectFontFamily = divAppmenuBar.querySelector("[action=font-family]");
       let selectFontSize = divAppmenuBar.querySelector("[action=font-size]");
-
-      resources.isBold = spanBold.getAttribute("pressed") == "true";
-      resources.isItalic = spanItalic.getAttribute("pressed") == "true";
-      resources.isUnderline = spanUnderline.getAttribute("pressed") == "true";
-      resources.bgColor = inputBGColor.value;
-      resources.TextColor = inputTextColor.value;
-      resources.fontFamily = selectFontFamily.value;
-      resources.fontSize = selectFontSize.value;
-      resources.content=textArea.value;
+      let textArea=divAppBody.querySelector("textArea");
+     
+      resource.isBold = spanBold.getAttribute("pressed") == "true";
+      resource.isItalic = spanItalic.getAttribute("pressed") == "true";
+      resource.isUnderline = spanUnderline.getAttribute("pressed") == "true";
+      resource.bgColor = inputBGColor.value;
+      resource.TextColor = inputTextColor.value;
+      resource.fontFamily = selectFontFamily.value;
+      resource.fontSize = selectFontSize.value;
+      resource.content=textArea.value;
 
       saveToStorage();
    }
+
+
+
+
 
    function makeNotepadBold() {
       let textArea = divAppBody.querySelector("textArea");
@@ -625,6 +513,61 @@
       textArea.style.fontSize = fontSize;
 
    }
+
+
+
+
+
+
+
+   //rid(resource id),rname(resource name),pid(parent id)
+   function addFolderHTML(rname, rid, pid) {
+      let divFolderTemplate = templates.content.querySelector(".folder");
+      let divFolder = document.importNode(divFolderTemplate, true);
+
+      let spanRename = divFolder.querySelector("[action=rename]");
+      let spanDelete = divFolder.querySelector("[action=delete]");
+      let spanView = divFolder.querySelector("[action=view]");
+      let divName = divFolder.querySelector("[purpose=name]");
+
+      spanRename.addEventListener("click", renameFolder);
+      spanDelete.addEventListener("click", deleteFolder);
+      spanView.addEventListener("click", viewFolder);
+
+      divName.innerHTML = rname;//aab resource name fname ki tarah work karega
+      divFolder.setAttribute("rid", rid);//aab attribute set karenge resource id bhi show ho
+      divFolder.setAttribute("pid", pid); //aab attribute dalenge taaki parent id bhi show ho
+      divContainer.appendChild(divFolder);
+
+
+
+   }
+
+   function addTextFileHTML(rname, rid, pid) {
+      let divTextFileTemplate = templates.content.querySelector(".text-file");
+      let divTextFile = document.importNode(divTextFileTemplate, true);
+
+      let spanRename = divTextFile.querySelector("[action=rename]");
+      let spanDelete = divTextFile.querySelector("[action=delete]");
+      let spanView = divTextFile.querySelector("[action=view]");
+      let divName = divTextFile.querySelector("[purpose=name]");
+
+      spanRename.addEventListener("click", renameTextFile);
+      spanDelete.addEventListener("click", deleteTextFile);
+      spanView.addEventListener("click", viewTextFile);
+
+      divName.innerHTML = rname;//aab resource name fname ki tarah work karega
+      divTextFile.setAttribute("rid", rid);//aab attribute set karenge resource id bhi show ho
+      divTextFile.setAttribute("pid", pid); //aab attribute dalenge taaki parent id bhi show ho
+      divContainer.appendChild(divTextFile);
+
+
+
+   }
+ 
+
+  
+   
 
    //rjson(resource json)
    function saveToStorage() {
