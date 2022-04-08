@@ -178,3 +178,7 @@ width: 100%;
     background-color: white;
     
 }
+
+[purpose=download]{
+    display: none;
+}

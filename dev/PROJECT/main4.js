@@ -394,7 +394,7 @@
       spanDownload.addEventListener("click",downloadNotepad);
       spanUpload.addEventListener("change",uploadNotepad);
       
-      let resource = resources.find(r => r.rid = fid);
+      let resource = resources.find(r => r.rid == fid);
        spanBold.setAttribute("pressed",!resource.isBold);
        spanItalic.setAttribute("pressed",!resource.isItalic);
        spanUnderline.setAttribute("pressed",!resource.isUnderline);
@@ -415,8 +415,22 @@
        
 
    }
+   //ye function download ke ley hai 
    function downloadNotepad(){
-console.log("in download");
+   let fid=parseInt(divAppTitle.getAttribute("rid"));//pehle file id nikal lo or udher se data fetch ho jaega
+   let resource = resources.find(r => r.rid == fid);//ye resource ki help se data nikal lenge
+  let divNotepadMenu=this.parentNode;//ye div main menu se download ka button nikal lega 
+
+
+  //ye main kaam hai 
+  let strForDownload=JSON.stringify(resource);//.hoga kya pehle resource ka data string main hokar save hoga storage main download ke ley
+  let encodedData=encodeURIComponent(strForDownload);//ye encoded ki help se data ho string se vapis normal form main kar lenge data ko
+
+  let aDownload=divNotepadMenu.querySelector("a[purpose=download]");
+  aDownload.setAttribute("href","data:text/json;charset=utf-8," + encodedData);
+  aDownload.setAttribute("download", resource.rname + ".json");
+  aDownload.click();
+
    }
    function uploadNotepad(){
 
