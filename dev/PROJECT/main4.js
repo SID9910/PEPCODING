@@ -91,14 +91,14 @@
       addTextFileHTML(rname, rid, pid);
 
       //ye hissa hataya ja sakta hai
-      resources.isBold = spanBold.getAttribute("pressed") == "true";
-      resources.isItalic = spanItalic.getAttribute("pressed") == "true";
-      resources.isUnderline = spanUnderline.getAttribute("pressed") == "true";
-      resources.bgColor = inputBGColor.value;
-      resources.TextColor = inputTextColor.value;
-      resources.fontFamily = selectFontFamily.value;
-      resources.fontSize = selectFontSize.value;
-      resources.content=textArea.value;
+      // resources.isBold = spanBold.getAttribute("pressed") == "true";
+      // resources.isItalic = spanItalic.getAttribute("pressed") == "true";
+      // resources.isUnderline = spanUnderline.getAttribute("pressed") == "true";
+      // resources.bgColor = inputBGColor.value;
+      // resources.TextColor = inputTextColor.value;
+      // resources.fontFamily = selectFontFamily.value;
+      // resources.fontSize = selectFontSize.value;
+      // resources.content=textArea.value;
 
       resources.push({
          rid: rid,
@@ -379,6 +379,8 @@
       let inputTextColor = divAppmenuBar.querySelector("[action=fg-color]");
       let selectFontFamily = divAppmenuBar.querySelector("[action=font-family]");
       let selectFontSize = divAppmenuBar.querySelector("[action=font-size]");
+       let spanDownload=divAppmenuBar.querySelector("[action=download]");
+       let spanUpload=divAppmenuBar.querySelector("[action=upload]");
       let textArea=divAppBody.querySelector("textArea");
 
       spanSave.addEventListener("click", saveNotepad);
@@ -389,6 +391,8 @@
       inputTextColor.addEventListener("change", changeNotepadTextColor);
       selectFontFamily.addEventListener("change", changeNotepadFontFamily);
       selectFontSize.addEventListener("change", changeNotepadFontSize);
+      spanDownload.addEventListener("click",downloadNotepad);
+      spanUpload.addEventListener("change",uploadNotepad);
       
       let resource = resources.find(r => r.rid = fid);
        spanBold.setAttribute("pressed",!resource.isBold);
@@ -407,6 +411,14 @@
        inputTextColor.dispatchEvent(new Event("change"));
        selectFontFamily.dispatchEvent(new Event("change"));
        selectFontSize.dispatchEvent(new Event("change"));
+
+       
+
+   }
+   function downloadNotepad(){
+console.log("in download");
+   }
+   function uploadNotepad(){
 
    }
 
