@@ -4,21 +4,28 @@
    let divbreadCrumb = document.querySelector("#breadCrumb");
    let divContainer = document.querySelector("#container");
    let aRootPath = divbreadCrumb.querySelector("a[purpose='path']");
-  
+
    let divApp = document.querySelector("#app");
    let divAppTitleBar = document.querySelector("#app-title-bar");
    let divAppTitle = document.querySelector("#app-title");
    let divAppmenuBar = document.querySelector("#app-menu-bar");
    let divAppBody = document.querySelector("#app-body");
-
+   let appClose=document.querySelector("#app-close");
    let templates = document.querySelector("#templates");
    let resources = []; //isme array main store karenge content
    let cfid = -1; //initial at current root folder -1
    let rid = 0;//resource id ko initial zero lo
+
    btnaddFolder.addEventListener("click", addFolder);
    btnaddTextFile.addEventListener("click", addTextFile);
    aRootPath.addEventListener("click", viewFolderFromPath);
+  appClose.addEventListener("click",closeapp);
 
+  function closeapp(){
+     divAppTitle.innerHTML="";
+     divAppmenuBar.innerHTML="";
+     divAppBody.innerHTML="";
+  }
 
 
 
@@ -90,29 +97,20 @@
       rid++;//resource id ko ++ karke bedgho  
       addTextFileHTML(rname, rid, pid);
 
-      //ye hissa hataya ja sakta hai
-      // resources.isBold = spanBold.getAttribute("pressed") == "true";
-      // resources.isItalic = spanItalic.getAttribute("pressed") == "true";
-      // resources.isUnderline = spanUnderline.getAttribute("pressed") == "true";
-      // resources.bgColor = inputBGColor.value;
-      // resources.TextColor = inputTextColor.value;
-      // resources.fontFamily = selectFontFamily.value;
-      // resources.fontSize = selectFontSize.value;
-      // resources.content=textArea.value;
 
       resources.push({
          rid: rid,
          rname: rname,
          rtype: "text-file",
          pid: cfid,
-         isBold :true,
-         isItalic :false,
-         isUnderline:false,
-         bgColor:"#000000",
-         TextColor:"#FFFFFF",
-         fontFamily:"cursive",
-         fontSize:22,
-            content:"i am a new file."
+         isBold: true,
+         isItalic: false,
+         isUnderline: false,
+         bgColor: "#f7f3f3",
+         textColor: "#474343",
+         fontFamily: "cursive",
+         fontSize: 22,
+         content: "I am a new file."
 
       });
       saveToStorage();
@@ -161,18 +159,18 @@
 
 
    function deleteTextFile() {
+
       let spanDelete = this;
       let divTextFile = spanDelete.parentNode;
       let divName = divTextFile.querySelector("[purpose='name']");
-      let fidtbd = divTextFile.getAttribute("rid");
+
+      let fidtbd = parseInt(divTextFile.getAttribute("rid"));
       let fname = divName.innerHTML;
 
-
-      let sure = confirm(`ARE YOU SURE YOU WANT TO DELETE ${fname}?`);
+      let sure = confirm(`Are you sure you want to delete ${fname}?`);
       if (!sure) {
          return;
       }
-
 
 
       //html
@@ -187,7 +185,7 @@
 
    }
 
-   
+
 
    function renameFolder() {
       let nrname = prompt("ENTER  NEW FOLDER'S NAME");//nrname(new resource name)
@@ -286,7 +284,7 @@
 
    }
 
-   
+
 
    //view ke ander ka kaam
    function viewFolder() {
@@ -313,6 +311,8 @@
          if (resources[i].pid == cfid) {
             addFolderHTML(resources[i].rname, resources[i].rid, resources[i].pid);
 
+         } else if (resources[i].rtype == "text-file") {
+            addTextFileHTML(resources[i].rname, resources[i].rid, resources[i].pid);
          }
       }
    }
@@ -324,8 +324,11 @@
       let fid = parseInt(aPath.getAttribute("rid")); //is se uss folder ki id aaegi jo chaheye
 
       //set the breadcrumb
-      while (aPath.nextSibling) {
-         aPath.parentNode.removeChild(aPath.nextSibling); //is se jonsa directory chaheye uske aajava baaki ke aage ke bhta dega 
+      for (let i = divbreadCrumb.children.length - 1; i >= 0; i--) {
+         if (divbreadCrumb.children[i] == aPath) {
+            break;
+         }
+         divbreadCrumb.removeChild(divbreadCrumb.children[i]);
       }
 
       //set the container
@@ -359,14 +362,15 @@
       let fid = parseInt(divTextFile.getAttribute("rid"));
 
       let divNotepadMenuTemplate = templates.content.querySelector("[purpose=notepad-menu]");
-      let divNotepadmenu = document.importNode(divNotepadMenuTemplate, true);
+      let divNotepadMenu = document.importNode(divNotepadMenuTemplate, true);
       divAppmenuBar.innerHTML = "";
-      divAppmenuBar.appendChild(divNotepadmenu);
+      divAppmenuBar.appendChild(divNotepadMenu);
 
       let divNotepadBodyTemplate = templates.content.querySelector("[purpose=notepad-body]");
-      let divNotepadbody = document.importNode(divNotepadBodyTemplate, true);
+      let divNotepadBody = document.importNode(divNotepadBodyTemplate, true);
       divAppBody.innerHTML = "";
-      divAppBody.appendChild(divNotepadbody);
+      divAppBody.appendChild(divNotepadBody);
+
       divAppTitle.innerHTML = fname;
       divAppTitle.setAttribute("rid", fid);
 
@@ -379,9 +383,10 @@
       let inputTextColor = divAppmenuBar.querySelector("[action=fg-color]");
       let selectFontFamily = divAppmenuBar.querySelector("[action=font-family]");
       let selectFontSize = divAppmenuBar.querySelector("[action=font-size]");
-       let spanDownload=divAppmenuBar.querySelector("[action=download]");
-       let spanUpload=divAppmenuBar.querySelector("[action=upload]");
-      let textArea=divAppBody.querySelector("textArea");
+      let spanDownload = divAppmenuBar.querySelector("[action=download]");
+      let inputUpload = divAppmenuBar.querySelector("[action=upload]");
+
+      let textArea = divAppBody.querySelector("textArea");
 
       spanSave.addEventListener("click", saveNotepad);
       spanBold.addEventListener("click", makeNotepadBold);
@@ -391,55 +396,90 @@
       inputTextColor.addEventListener("change", changeNotepadTextColor);
       selectFontFamily.addEventListener("change", changeNotepadFontFamily);
       selectFontSize.addEventListener("change", changeNotepadFontSize);
-      spanDownload.addEventListener("click",downloadNotepad);
-      spanUpload.addEventListener("change",uploadNotepad);
-      
+      spanDownload.addEventListener("click", downloadNotepad);
+      inputUpload.addEventListener("change", uploadNotepad);
+
+
+
       let resource = resources.find(r => r.rid == fid);
-       spanBold.setAttribute("pressed",!resource.isBold);
-       spanItalic.setAttribute("pressed",!resource.isItalic);
-       spanUnderline.setAttribute("pressed",!resource.isUnderline);
-       inputBGColor.value=resource.bgColor;
-       inputTextColor.value=resource.textColor;
-       selectFontFamily.value=resource.fontFamily;
-       selectFontSize.value=resource.fontSize;
-       textArea.value=resource.content;
+      spanBold.setAttribute("pressed", !resource.isBold);
+      spanItalic.setAttribute("pressed", !resource.isItalic);
+      spanUnderline.setAttribute("pressed", !resource.isUnderline);
+      inputBGColor.value = resource.bgColor;
+      inputTextColor.value = resource.textColor;
+      selectFontFamily.value = resource.fontFamily;
+      selectFontSize.value = resource.fontSize;
+      textArea.value = resource.content;
 
-       spanBold.dispatchEvent(new Event("click"));
-       spanItalic.dispatchEvent(new Event("click"));
-       spanUnderline.dispatchEvent(new Event("click"));
-       inputBGColor.dispatchEvent(new Event("change"));
-       inputTextColor.dispatchEvent(new Event("change"));
-       selectFontFamily.dispatchEvent(new Event("change"));
-       selectFontSize.dispatchEvent(new Event("change"));
+      spanBold.dispatchEvent(new Event("click"));
+      spanItalic.dispatchEvent(new Event("click"));
+      spanUnderline.dispatchEvent(new Event("click"));
+      inputBGColor.dispatchEvent(new Event("change"));
+      inputTextColor.dispatchEvent(new Event("change"));
+      selectFontFamily.dispatchEvent(new Event("change"));
+      selectFontSize.dispatchEvent(new Event("change"));
 
-       
 
    }
    //ye function download ke ley hai 
-   function downloadNotepad(){
-   let fid=parseInt(divAppTitle.getAttribute("rid"));//pehle file id nikal lo or udher se data fetch ho jaega
-   let resource = resources.find(r => r.rid == fid);//ye resource ki help se data nikal lenge
-  let divNotepadMenu=this.parentNode;//ye div main menu se download ka button nikal lega 
+   function downloadNotepad() {
+      let fid = parseInt(divAppTitle.getAttribute("rid"));//pehle file id nikal lo or udher se data fetch ho jaega
+      let resource = resources.find(r => r.rid == fid);//ye resource ki help se data nikal lenge
+      let divNotepadMenu = this.parentNode;//ye div main menu se download ka button nikal lega 
 
 
-  //ye main kaam hai 
-  let strForDownload=JSON.stringify(resource);//.hoga kya pehle resource ka data string main hokar save hoga storage main download ke ley
-  let encodedData=encodeURIComponent(strForDownload);//ye encoded ki help se data ho string se vapis normal form main kar lenge data ko
+      //ye main kaam hai 
+      let strForDownload = JSON.stringify(resource);//.hoga kya pehle resource ka data string main hokar save hoga storage main download ke ley
+      let encodedData = encodeURIComponent(strForDownload);//ye encoded ki help se data ho string se vapis normal form main kar lenge data ko
 
-  let aDownload=divNotepadMenu.querySelector("a[purpose=download]");
-  aDownload.setAttribute("href","data:text/json;charset=utf-8," + encodedData);
-  aDownload.setAttribute("download", resource.rname + ".json");
-  aDownload.click();
+      let aDownload = divNotepadMenu.querySelector("a[purpose=download]");
+      aDownload.setAttribute("href", "data:text/json;charset=utf-8," + encodedData);
+      aDownload.setAttribute("download", resource.rname + ".json");
+      aDownload.click();
 
    }
-   function uploadNotepad(){
+   function uploadNotepad() {
+      let file = window.event.target.files[0];
+      let reader = new FileReader();
+      reader.addEventListener("load", function () {
+         let data = window.event.target.result;
+         let resource = JSON.parse(data);
+
+         let spanBold = divAppmenuBar.querySelector("[action=bold]");
+         let spanItalic = divAppmenuBar.querySelector("[action=italic]");
+         let spanUnderline = divAppmenuBar.querySelector("[action=underline]");
+         let inputBGColor = divAppmenuBar.querySelector("[action=bg-color]");
+         let inputTextColor = divAppmenuBar.querySelector("[action=fg-color]");
+         let selectFontFamily = divAppmenuBar.querySelector("[action=font-family]");
+         let selectFontSize = divAppmenuBar.querySelector("[action=font-size]");
+         let textArea = divAppBody.querySelector("textArea");
+
+         spanBold.setAttribute("pressed", !resource.isBold);
+         spanItalic.setAttribute("pressed", !resource.isItalic);
+         spanUnderline.setAttribute("pressed", !resource.isUnderline);
+         inputBGColor.value = resource.bgColor;
+         inputTextColor.value = resource.textColor;
+         selectFontFamily.value = resource.fontFamily;
+         selectFontSize.value = resource.fontSize;
+         textArea.value = resource.content;
+
+         spanBold.dispatchEvent(new Event("click"));
+         spanItalic.dispatchEvent(new Event("click"));
+         spanUnderline.dispatchEvent(new Event("click"));
+         inputBGColor.dispatchEvent(new Event("change"));
+         inputTextColor.dispatchEvent(new Event("change"));
+         selectFontFamily.dispatchEvent(new Event("change"));
+         selectFontSize.dispatchEvent(new Event("change"));
+
+      })
+      reader.readAsText(file);
 
    }
 
    function saveNotepad() {
       let fid = parseInt(divAppTitle.getAttribute("rid"));
-      let resource = resources.find(r => r.rid = fid);
-     
+      let resource = resources.find(r => r.rid == fid);
+
       let spanBold = divAppmenuBar.querySelector("[action=bold]");
       let spanItalic = divAppmenuBar.querySelector("[action=italic]");
       let spanUnderline = divAppmenuBar.querySelector("[action=underline]");
@@ -447,16 +487,16 @@
       let inputTextColor = divAppmenuBar.querySelector("[action=fg-color]");
       let selectFontFamily = divAppmenuBar.querySelector("[action=font-family]");
       let selectFontSize = divAppmenuBar.querySelector("[action=font-size]");
-      let textArea=divAppBody.querySelector("textArea");
-     
+      let textArea = divAppBody.querySelector("textArea");
+
       resource.isBold = spanBold.getAttribute("pressed") == "true";
       resource.isItalic = spanItalic.getAttribute("pressed") == "true";
       resource.isUnderline = spanUnderline.getAttribute("pressed") == "true";
       resource.bgColor = inputBGColor.value;
-      resource.TextColor = inputTextColor.value;
+      resource.textColor = inputTextColor.value;
       resource.fontFamily = selectFontFamily.value;
       resource.fontSize = selectFontSize.value;
-      resource.content=textArea.value;
+      resource.content = textArea.value;
 
       saveToStorage();
    }
@@ -464,83 +504,68 @@
 
 
 
-
    function makeNotepadBold() {
       let textArea = divAppBody.querySelector("textArea");
-      let ispressed = this.getAttribute("pressed") == "true";
-      if (ispressed == false) {
+      let isPressed = this.getAttribute("pressed") == "true";
+      if (isPressed == false) {
          this.setAttribute("pressed", true);
          textArea.style.fontWeight = "bold";
-
       } else {
          this.setAttribute("pressed", false);
          textArea.style.fontWeight = "normal";
       }
-
-
    }
+
    function makeNotepadItalic() {
       let textArea = divAppBody.querySelector("textArea");
-      let ispressed = this.getAttribute("pressed") == "true";
-      if (ispressed == false) {
+      let isPressed = this.getAttribute("pressed") == "true";
+      if (isPressed == false) {
          this.setAttribute("pressed", true);
          textArea.style.fontStyle = "italic";
-
       } else {
          this.setAttribute("pressed", false);
          textArea.style.fontStyle = "normal";
       }
-
-
-
    }
    function makeNotepadUnderline() {
       let textArea = divAppBody.querySelector("textArea");
-      let ispressed = this.getAttribute("pressed") == "true";
-      if (ispressed == false) {
+      let isPressed = this.getAttribute("pressed") == "true";
+      if (isPressed == false) {
          this.setAttribute("pressed", true);
          textArea.style.textDecoration = "underline";
-
       } else {
          this.setAttribute("pressed", false);
-         textArea.style.textDecoration = "normal";
+         textArea.style.textDecoration = "none";
       }
-
-
    }
 
-   //not working
 
 
    //notepad ke aander ka bg-color kaam sara kaam ye function karega
+
    function changeNotepadBGColor() {
       let color = this.value;
       let textArea = divAppBody.querySelector("textArea");
       textArea.style.backgroundColor = color;
-
    }
 
    function changeNotepadTextColor() {
       let color = this.value;
       let textArea = divAppBody.querySelector("textArea");
       textArea.style.color = color;
-
    }
+
    function changeNotepadFontFamily() {
       let fontFamily = this.value;
       let textArea = divAppBody.querySelector("textArea");
       textArea.style.fontFamily = fontFamily;
-
    }
 
    function changeNotepadFontSize() {
       let fontSize = this.value;
       let textArea = divAppBody.querySelector("textArea");
       textArea.style.fontSize = fontSize;
-
    }
-
-
 
 
 
@@ -569,9 +594,10 @@
 
    }
 
+
    function addTextFileHTML(rname, rid, pid) {
       let divTextFileTemplate = templates.content.querySelector(".text-file");
-      let divTextFile = document.importNode(divTextFileTemplate, true);
+      let divTextFile = document.importNode(divTextFileTemplate, true); // makes a copy
 
       let spanRename = divTextFile.querySelector("[action=rename]");
       let spanDelete = divTextFile.querySelector("[action=delete]");
@@ -581,19 +607,15 @@
       spanRename.addEventListener("click", renameTextFile);
       spanDelete.addEventListener("click", deleteTextFile);
       spanView.addEventListener("click", viewTextFile);
+      divName.innerHTML = rname;
+      divTextFile.setAttribute("rid", rid);
+      divTextFile.setAttribute("pid", pid);
 
-      divName.innerHTML = rname;//aab resource name fname ki tarah work karega
-      divTextFile.setAttribute("rid", rid);//aab attribute set karenge resource id bhi show ho
-      divTextFile.setAttribute("pid", pid); //aab attribute dalenge taaki parent id bhi show ho
       divContainer.appendChild(divTextFile);
-
-
-
    }
- 
 
-  
-   
+
+
 
    //rjson(resource json)
    function saveToStorage() {

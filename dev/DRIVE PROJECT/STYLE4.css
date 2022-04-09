@@ -1,5 +1,6 @@
 #header {
-    border:1px solid black;
+    /* is border ke use se container ki outline gayab ho jaegi */
+    border:1px solid white;   
     margin: 10px;
     padding: 10px;
     display: flex;
@@ -46,7 +47,7 @@
     
 }
 #container {
-    border:1px solid black;
+    border:1px solid white;
     margin: 10px;
     padding: 10px;
     display: flex;
@@ -65,7 +66,7 @@
     border: transparent;
     box-shadow: 5px 7px 7px black;
     color: whitesmoke;
-    
+    box-shadow: 5px 7px 7px black;
 
 }
 .folder div[purpose=name]{
@@ -94,6 +95,7 @@
     border: transparent;
     
     color: whitesmoke;
+    box-shadow: 5px 7px 7px black;
     
 
 }
@@ -117,13 +119,14 @@
 
 #app-title-bar {
     display: flex;
-    background-color: darkgray;
+    background-color:black;
     height: 40px;
     
 }
 #app-title {
     width: 92%;
     text-align: center;
+    color:white;
     
 }
 #app-menu-bar {
@@ -134,7 +137,7 @@
 }
 #app-body {
     display: flex;
-    background-color: lightcyan;
+    background-color: whitesmoke;
     height: 500px;
     
 }
@@ -181,4 +184,14 @@ width: 100%;
 
 [purpose=download]{
     display: none;
+}
+
+#win-actions span{
+    cursor:pointer;
+    color: white;
+}
+
+#win-actions span:hover{
+    color:red;
+    transform: scale(1.5);
 }
