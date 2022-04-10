@@ -552,7 +552,35 @@
   
         divAppTitle.innerHTML = fname;
         divAppTitle.setAttribute("rid", fid);
+
+        let spanAdd=divAlbumMenu.querySelector("[action=add]");
+        spanAdd.addEventListener("click",addPictureToAlbum);
        
+    }
+    //ye function picture add karane main help karega
+    function addPictureToAlbum(){
+       let iurl=prompt("ENTER THE IMAGE URL");
+       if(!iurl){
+          return;
+       }
+       let img=document.createElement("img");
+       img.setAttribute("src",iurl);
+       img.addEventListener("click",showPictureInMain);
+
+       let divPictureList=divAppBody.querySelector(".picture-list");
+       divPictureList.appendChild(img);
+    }
+
+    function showPictureInMain(){
+       let divPictureMainImg=divAppBody.querySelector(".picture-main > img");
+       divPictureMainImg.setAttribute("src",this.getAttribute("src"));
+
+       let divPictureList=divAppBody.querySelector(".picture-list");
+       let imgs=divPictureList.querySelectorAll("img");
+       for(i=0;i<imgs.length;i++){
+          imgs[i].setAttribute("pressed",false);
+       }
+       this.setAttribute("pressed",true);
     }
   
     //ye function download ke ley hai 

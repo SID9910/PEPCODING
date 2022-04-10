@@ -275,10 +275,13 @@ body {background-color:darkgrey;}
     transform: scale(1.05);
     border:2px solid red;
 }
-
+.picture-list img[pressed=true]{
+    transform: scale(1.05);
+    border:2px solid black;
+}
 .picture-view{
     border:1px solid black;
-    height: 100px;
+    height: 200px;
     margin: 5px;
     padding: 5px;
     display: flex; 
@@ -286,7 +289,7 @@ body {background-color:darkgrey;}
 
 .picture-view >div{
     height: 100%;
-    border: 1px solid black;
+    
 }
 
 .picture-view .move-left{
