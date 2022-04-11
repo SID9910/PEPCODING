@@ -1,0 +1,71 @@
+body {
+    margin:0px;
+}
+
+.material-icons{
+    font-size: 1.75rem;
+    cursor: pointer;
+    
+}
+.app-menu{
+    height:3rem;
+    background-color:lightgrey;
+    display: flex;
+    align-items: center;
+}
+
+.app-menu>*{
+   margin-right: 1rem;
+}
+
+.img-list-container{
+    height: 7rem;
+    background-color: grey;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+
+.img-list-container>*{
+    height: 80%;
+    margin-right: 2rem;
+    border-radius: 12%;
+    box-shadow: 5px 7px 7px black;
+    
+}
+.img_preview:hover{
+    box-shadow: 5px 7px 7px black;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+
+.img-preview_container{
+     /* height: calc(100vh -10rem );  */
+    height:500px;
+    background-color: lightgoldenrodyellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.final_image:hover{
+    transform: scale(1.05);
+    
+
+}
+.final_image{
+    
+
+    cursor: pointer;
+    width: 40%;
+    /* resize image without loosing aspect ration onject-fit is used for that purpose  */
+    object-fit: contain;
+    max-height: 80%;
+    
+}
+.img-preview_container>.material-icons{
+font-size: 2rem;
+}
+/* 1 rem=16px */
