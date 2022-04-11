@@ -6,8 +6,6 @@
     let divContainer = document.querySelector("#container");
     let aRootPath = divbreadCrumb.querySelector("a[purpose='path']");
  
-    let divApp = document.querySelector("#app");
-    let divAppTitleBar = document.querySelector("#app-title-bar");
     let divAppTitle = document.querySelector("#app-title");
     let divAppmenuBar = document.querySelector("#app-menu-bar");
     let divAppBody = document.querySelector("#app-body");
