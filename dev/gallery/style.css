@@ -41,7 +41,7 @@ body {
 }
 
 
-.img-preview_container{
+.img-show_container{
      /* height: calc(100vh -10rem );  */
     height:500px;
     background-color: lightgoldenrodyellow;
@@ -65,7 +65,7 @@ body {
     max-height: 80%;
     
 }
-.img-preview_container>.material-icons{
+.img-show_container>.material-icons{
 font-size: 2rem;
 }
 /* 1 rem=16px */
