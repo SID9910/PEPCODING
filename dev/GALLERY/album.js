@@ -1,3 +1,4 @@
+                                   //6,12 march
 (function(){
 
 let saveAlbum=document.querySelector("#saveAlbum");
@@ -9,7 +10,10 @@ let playAlbum=document.querySelector("#playAlbum");
 let selectAlbum=document.querySelector("#selectAlbum");
 let allTemplates=document.querySelector("#allTemplates");
 let overlay=document.querySelector("#overlay");
-contentDetailsOverlay=document.querySelector("#content-details-overlay");
+let contentDetailsOverlay=document.querySelector("#content-details-overlay");
+let newSlide=document.querySelector("#new-slide");
+let createSlide=document.querySelector("#create-Slide");
+let showSlide=document.querySelector("#show-Slide");
 //albums array main store karenge
 let albums=[{
     name:"test",
@@ -18,6 +22,7 @@ let albums=[{
 
 addAlbum.addEventListener("click",handleAddAlbum);
 selectAlbum.addEventListener("change",handleSelectAlbum);
+newSlide.addEventListener("click",handleNewSlideClick);
 function handleAddAlbum(){
     let albumName=prompt("ENTER THE NAME FOR NEW ALBUM ");
     if(albumName==null){
@@ -77,12 +82,20 @@ function handleSelectAlbum(){
         overlay.style.display="block";
        
         contentDetailsOverlay.style.display="none";
+        createSlide.style.display="block";
     }
     else{
         overlay.style.display="none";
         contentDetailsOverlay.style.display="block";
+        createSlide.style.display="block";
     }
 
+}
+function handleNewSlideClick(){
+    overlay.style.display="none";
+       
+    contentDetailsOverlay.style.display="none";
+    createSlide.style.display="block";
 }
 
 

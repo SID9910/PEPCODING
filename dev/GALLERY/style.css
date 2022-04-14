@@ -84,7 +84,7 @@ body{
     
     width: 50%;
     top: 50%;
-    left: 50%;
+    left: 40%;
     transform: translate(-40%,-50%);
 
     /* vertically aligning text within div */
@@ -118,4 +118,47 @@ body{
     height:580px;
     overflow-x: hidden;
     overflow-y: auto;
+}
+#create-Slide{
+ display: none;
+ 
+ 
+ 
+}
+
+
+#create-Slide div{
+    margin: 10px;
+    padding: 20px;
+    background-color: aliceblue;
+    text-align: center;
+   }
+
+   
+
+   
+#create-Slide textarea{
+    width: 70%;
+    height: 45vh;
+    font-size: 30px;
+   }
+#create-Slide input{
+    width: 70%;
+    height: 15vh;
+    font-size: 30px;
+   }
+ #create-Slide button{
+     padding: 10px;
+     border-radius: 4px;
+     background-color: aquamarine;
+     color: black;
+     cursor: pointer;
+ }  
+ #create-Slide button:hover{
+transform: scale(1.05);
+box-shadow: 5px 7px 7px black;
+}  
+    
+#show-Slide{
+    display: none;
 }
