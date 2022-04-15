@@ -114,6 +114,57 @@ body{
    
 }
 
+.slide{
+    height: 100px;
+    width: 95%;
+
+    background-color:rgb(127, 68, 216);
+    border-radius: 5px;
+    cursor: pointer;
+    cursor: white;
+    margin: 5px 2px;
+    transform: scale(1.05);
+}
+
+.slide:hover{
+    opacity: 0.9;
+}
+.slide .title{
+    height: 25%;
+    border-bottom: 2px solid white;
+
+}
+
+.slide .slide-content{
+    height: 75%;
+    width: 100%;
+    display: flex;
+    padding: 5px;
+}
+
+.slide-content .desc {
+    height: 100%;
+    width: 48%;
+    border-radius: 5px;
+    background-color:aliceblue;
+
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0px 5px;
+    padding: 3px;
+}
+
+.slide-content img {
+    height: 100%;
+    width: 48%;
+    border-radius: 5px;
+    background-color:white ;
+
+}
+
+
+
 #slide-list{
     height:580px;
     overflow-x: hidden;
@@ -129,7 +180,7 @@ body{
 
 #create-Slide div{
     margin: 10px;
-    padding: 20px;
+    padding: 5.5px;
     background-color: aliceblue;
     text-align: center;
    }
@@ -139,12 +190,12 @@ body{
    
 #create-Slide textarea{
     width: 70%;
-    height: 45vh;
+    height: 55vh;
     font-size: 30px;
    }
 #create-Slide input{
     width: 70%;
-    height: 15vh;
+    height: 6vh;
     font-size: 30px;
    }
  #create-Slide button{
