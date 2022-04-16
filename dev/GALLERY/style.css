@@ -8,7 +8,7 @@ body {
 }
 
 #action-bar {
-    background-color: lightgray;
+    background-color: darkgrey;
     height: 8vh;
     display: flex;
 }
@@ -122,7 +122,7 @@ body {
     height: 100px;
     width: 95%;
 
-    background-color: palevioletred;
+    background-color:  rebeccapurple;
     border-radius: 5px;
     cursor: pointer;
     color: white;
@@ -217,7 +217,7 @@ body {
     height: 98%;
     width: 99%;
 
-    background-color:rgb(217, 164, 207);
+    background-color: rebeccapurple;
     border-radius: 5px;
     cursor: pointer;
     color:black;
@@ -258,7 +258,7 @@ body {
     width: 50%;
     border-radius: 5px;
     
-    background-color: ;
+    background-color:rgb(186, 135, 233) ;
 
     font-size: 20px;
     overflow: hidden;
