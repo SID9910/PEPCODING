@@ -24,7 +24,7 @@
     selectAlbum.addEventListener("change", handleSelectAlbum);
     newSlide.addEventListener("click", handleNewSlideClick);
     btnSaveSlide.addEventListener("click", handleSaveSlide);
-    saveAlbum.addEventListener("click", saveToLocalStorage);
+    // saveAlbum.addEventListener("click", saveToLocalStorage);
 
     function handleAddAlbum(){
         let albumName = prompt("Enter a name for the new album");
@@ -73,22 +73,22 @@
             createSlide.style.display = "none";
             showSlide.style.display = "none";
 
-            let album = albums.find(a => a.name == selectAlbum.value);
-            slideList.innerHTML = "";
+            // let album = albums.find(a => a.name == selectAlbum.value);
+            // slideList.innerHTML = "";
 
-            for(let i = 0; i < album.slides.length; i++){
-                let slideTemplate = allTemplates.content.querySelector(".slide");
-                let slide = document.importNode(slideTemplate, true);
+            // for(let i = 0; i < album.slides.length; i++){
+            //     let slideTemplate = allTemplates.content.querySelector(".slide");
+            //     let slide = document.importNode(slideTemplate, true);
 
-                slide.querySelector(".title").innerHTML = album.slides[i].title;
-                slide.querySelector(".desc").innerHTML = album.slides[i].desc;
-                slide.querySelector("img").setAttribute("src", album.slides[i].url);
-                slide.addEventListener("click", handleSlideClick);
+            //     slide.querySelector(".title").innerHTML = album.slides[i].title;
+            //     slide.querySelector(".desc").innerHTML = album.slides[i].desc;
+            //     slide.querySelector("img").setAttribute("src", album.slides[i].url);
+            //     slide.addEventListener("click", handleSlideClick);
 
-                album.slides[i].selected = false;
+            //     album.slides[i].selected = false;
 
-                slideList.append(slide);
-            }
+            //     slideList.append(slide);
+            // }
         }
 
 
@@ -121,12 +121,12 @@
         slideList.append(slide);
         slide.dispatchEvent(new Event("click"));
 
-        let album = albums.find(a => a.name == selectAlbum.value);
-        album.slides.push({
-            title: title,
-            url: url,
-            desc: desc
-        });
+        // let album = albums.find(a => a.name == selectAlbum.value);
+        // album.slides.push({
+        //     title: title,
+        //     url: url,
+        //     desc: desc
+        // });
     }
 
     function handleSlideClick(){
@@ -143,71 +143,71 @@
         slideInView.querySelector(".title").innerHTML = this.querySelector(".title").innerHTML;
         slideInView.querySelector(".desc").innerHTML = this.querySelector(".desc").innerHTML;
         slideInView.querySelector("img").setAttribute("src", this.querySelector("img").getAttribute("src"));
-        slideInView.querySelector("[purpose=edit]").addEventListener("click", handleEditSlideClick);
-        slideInView.querySelector("[purpose=delete]").addEventListener("click", handleDeleteSlideClick);
+        // slideInView.querySelector("[purpose=edit]").addEventListener("click", handleEditSlideClick);
+        // slideInView.querySelector("[purpose=delete]").addEventListener("click", handleDeleteSlideClick);
 
         showSlide.append(slideInView);
 
-        let album = albums.find(a => a.name == selectAlbum.value);
-        for(let i = 0; i < album.slides.length; i++){
-            if(album.slides[i].title == this.querySelector(".title").innerHTML){
-                album.slides[i].selected = true;
-            } else {
-                album.slides[i].selected = false;
-            }
-        }
+        // let album = albums.find(a => a.name == selectAlbum.value);
+        // for(let i = 0; i < album.slides.length; i++){
+        //     if(album.slides[i].title == this.querySelector(".title").innerHTML){
+        //         album.slides[i].selected = true;
+        //     } else {
+        //         album.slides[i].selected = false;
+        //     }
+        // }
     }
 
-    function handleEditSlideClick(){
-        alert("edit");
-    }
+    // function handleEditSlideClick(){
+    //     alert("edit");
+    // }
 
-    function handleDeleteSlideClick(){
-        let album = albums.find(a => a.name == selectAlbum.value);
-        let sidx = album.slides.findIndex(s => s.selected == true);
+    // function handleDeleteSlideClick(){
+    //     let album = albums.find(a => a.name == selectAlbum.value);
+    //     let sidx = album.slides.findIndex(s => s.selected == true);
 
-        let slideDivTBD;
-        for(let i = 0; i < slideList.children.length; i++){
-            let slideDiv = slideList.children[i];
-            if(slideDiv.querySelector(".title").innerHTML == album.slides[sidx].title){
-                slideDivTBD = slideDiv;
-                break;
-            }
-        }
+    //     let slideDivTBD;
+    //     for(let i = 0; i < slideList.children.length; i++){
+    //         let slideDiv = slideList.children[i];
+    //         if(slideDiv.querySelector(".title").innerHTML == album.slides[sidx].title){
+    //             slideDivTBD = slideDiv;
+    //             break;
+    //         }
+    //     }
 
-        slideList.removeChild(slideDivTBD);
+    //     slideList.removeChild(slideDivTBD);
 
-        album.slides.splice(sidx, 1);
+    //     album.slides.splice(sidx, 1);
 
-        overlay.style.display = "none";
-        contentDetailsOverlay.style.display = "block";
-        createSlide.style.display = "none";
-        showSlide.style.display = "none";
-    }
+    //     overlay.style.display = "none";
+    //     contentDetailsOverlay.style.display = "block";
+    //     createSlide.style.display = "none";
+    //     showSlide.style.display = "none";
+    // }
 
-    function saveToLocalStorage(){
-        let json = JSON.stringify(albums); // used to convert jso to a json string which can be saved
-        localStorage.setItem("data", json);
-    }
+    // function saveToLocalStorage(){
+    //     let json = JSON.stringify(albums); // used to convert jso to a json string which can be saved
+    //     localStorage.setItem("data", json);
+    // }
 
-    function loadFromLocalStorage(){
-        let json = localStorage.getItem("data");
-        if(!json){
-            return;
-        }
+    // function loadFromLocalStorage(){
+    //     let json = localStorage.getItem("data");
+    //     if(!json){
+    //         return;
+    //     }
        
-        albums = JSON.parse(json);
-        for(let i = 0; i < albums.length; i++){
-            let optionTemplate = allTemplates.content.querySelector("[purpose=new-album]");
-            let newAlbumOption = document.importNode(optionTemplate, true);
+    //     albums = JSON.parse(json);
+    //     for(let i = 0; i < albums.length; i++){
+    //         let optionTemplate = allTemplates.content.querySelector("[purpose=new-album]");
+    //         let newAlbumOption = document.importNode(optionTemplate, true);
     
-            newAlbumOption.setAttribute("value", albums[i].name);
-            newAlbumOption.innerHTML = albums[i].name;
-            selectAlbum.appendChild(newAlbumOption);
-        }
+    //         newAlbumOption.setAttribute("value", albums[i].name);
+    //         newAlbumOption.innerHTML = albums[i].name;
+    //         selectAlbum.appendChild(newAlbumOption);
+    //     }
 
-        selectAlbum.value = "-1";
-    }
+    //     selectAlbum.value = "-1";
+    // }
 
-    loadFromLocalStorage();
+    // loadFromLocalStorage();
 })();

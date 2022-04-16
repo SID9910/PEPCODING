@@ -1,215 +1,280 @@
-body{
+body {
     margin: 0px;
     padding: 0px;
 }
 
-*{
+* {
     box-sizing: border-box;
 }
 
-#action-bar{
-    background-color:lightgrey;
+#action-bar {
+    background-color: lightgray;
     height: 8vh;
     display: flex;
 }
-#action-bar *{
+
+#action-bar * {
     border: 3px solid black;
     border-radius: 5px;
-    margin: 10px  5px;
+    margin: 10px 5px;
     padding: 5px;
     cursor: pointer;
 }
 
-#action-bar span:hover{
-    background-color: rgb(152, 46, 46);
-    transform: scale(1.05);
-    
+
+#action-bar select:hover{
+    background-color:chartreuse;
 }
-#action-bar select{
+
+#action-bar span:hover {
+    background-color:rgb(152, 46, 46);
+    transform: scale(1.05);
+}
+
+#action-bar select {
     background-color: aquamarine;
 }
-#action-bar select:hover{
-    background-color:darkgreen;
+
+#action-bar select option {
+    margin: 10px;
+    border-bottom: 2px solid teal;
 }
-#action-bar select option{
-    margin:10px;
-    border-bottom: 2pxsolid teal;
-}
-#content{
+
+#content {
     height: 92vh;
     display: flex;
 }
-#content-list{
-    
+
+#content-list {
     width: 15vw;
     padding: 5px;
+}
 
-}
-#content-details{
-    border: 5px solid blue;
+#content-details {
     width: 85vw;
+    border-left: 3px solid teal;
 }
-#content-details-overlay{
+
+#content-details-overlay {
     display: none;
     position: fixed;
     height: 92vh;
     width: 100vw;
-    top: 8vh;
-    left: 32vh;
-    background-color:black;
+    top:8vh;
+    left: 15vw;
+    background-color: black;
     opacity: 0.5;
     z-index: 2;
     cursor: pointer;
-
 }
-#overlay{
-    /* position fixed browser se top ke through 8vh ka gaap banay rakhega */
-    
+
+
+
+#overlay {
     position: fixed;
     height: 92vh;
     width: 100vw;
-    top: 8vh;
-    left: 0%;
-    background-color:black;
+    top:8vh;
+    left:0%;
+    background-color: black;
     opacity: 0.5;
     z-index: 2;
     cursor: pointer;
-
 }
-#text{
-    /* absolute se niche se kone se start hota hai uper jha url dalte hai vha se nhi */
-    position:absolute;
+
+#text {
+    position: absolute;
     font-size: 50px;
     color: white;
-    
     width: 50%;
-    top: 50%;
-    left: 40%;
-    transform: translate(-40%,-50%);
-
-    /* vertically aligning text within div */
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    
+    /* vertically aligning text within div*/
     line-height: 100px;
-    vertical-align: middle;
-    /* horizontally aligning text within div */
-    text-align: center;
+    vertical-align:middle;
+
+    text-align: center; /*horizontally align text within this div*/
+    text-decoration: underline;
 }
 
 #new-slide {
-    background-color:rgb(127, 68, 216);
-    line-height: 100px;
-    text-align: center;
+    background-color:rgba(85, 105, 186, 0.656);
     border-radius: 5px;
+    text-align: center;
+    line-height: 100px;
     vertical-align: middle;
     cursor: pointer;
     color: white;
     font-weight: 900;
-    margin: 10px;
+    margin: 5px;
+    color: black;
 }
-
 
 #new-slide:hover {
-   transform: scale(1.02);
-   box-shadow: 5px 7px 7px black;
-
-   
+    transform: scale(1.02);
+    background-color: rgb(73, 73, 225);
+    
 }
 
-.slide{
+.slide {
     height: 100px;
     width: 95%;
 
-    background-color:rgb(127, 68, 216);
+    background-color: palevioletred;
     border-radius: 5px;
     cursor: pointer;
-    cursor: white;
+    color: white;
     margin: 5px 2px;
-    transform: scale(1.05);
 }
 
-.slide:hover{
+.slide:hover {
     opacity: 0.9;
+    background-color: brown;
+    transform: scale(1.02);
 }
-.slide .title{
+
+.slide .title {
     height: 25%;
     border-bottom: 2px solid white;
-
+    color: black;
+    text-align: center;
 }
 
-.slide .slide-content{
+.slide .slide-content {
     height: 75%;
     width: 100%;
     display: flex;
+  color: black;
     padding: 5px;
 }
 
-.slide-content .desc {
+.slide .slide-content .desc {
     height: 100%;
     width: 48%;
     border-radius: 5px;
-    background-color:aliceblue;
+    
+    background-color:white;
+    color: black;
 
     font-size: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0px 5px;
-    padding: 3px;
+    padding: 5px;
 }
 
-.slide-content img {
+.slide .slide-content img {
     height: 100%;
     width: 48%;
     border-radius: 5px;
-    background-color:white ;
-
 }
-
-
 
 #slide-list{
-    height:580px;
-    overflow-x: hidden;
+    height: calc(92vh - 120px);
     overflow-y: auto;
-}
-#create-Slide{
- display: none;
- 
- 
- 
+    overflow-x: hidden;
 }
 
-
-#create-Slide div{
-    margin: 10px;
-    padding: 5.5px;
-    background-color: aliceblue;
-    text-align: center;
-   }
-
-   
-
-   
-#create-Slide textarea{
-    width: 70%;
-    height: 55vh;
-    font-size: 30px;
-   }
-#create-Slide input{
-    width: 70%;
-    height: 6vh;
-    font-size: 30px;
-   }
- #create-Slide button{
-     padding: 10px;
-     border-radius: 4px;
-     background-color: aquamarine;
-     color: black;
-     cursor: pointer;
- }  
- #create-Slide button:hover{
-transform: scale(1.05);
-box-shadow: 5px 7px 7px black;
-}  
-    
-#show-Slide{
+#create-slide {
     display: none;
 }
+
+#create-slide div {
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+#create-slide textarea {
+    width: 90%;
+    height: 55vh;
+    font-size: 30px;
+    border-radius: 4px;
+}
+
+#create-slide input {
+    width: 90%;
+    height: 6vh;
+    font-size: 30px;
+    border-radius: 4px;
+}
+
+#create-slide button {
+    padding: 20px;
+    border-radius: 4px;
+    background-color: aquamarine;
+    color: white;
+    cursor: pointer;
+}
+
+#show-slide {
+    display: none;
+}
+
+.slide-in-view {
+    height: 98%;
+    width: 99%;
+
+    background-color:rgb(217, 164, 207);
+    border-radius: 5px;
+    cursor: pointer;
+    color:black;
+    margin: 5px;
+}
+
+.slide-in-view .slide-header {
+    height: 10%;
+    border-bottom: 2px solid white;
+    display: flex;
+    padding-top: 10px;
+}
+
+.slide-in-view .slide-header .title {
+    width: 98%;
+    text-align: center;
+    font-size: 40px;
+}
+
+.slide-in-view .slide-header span {
+    padding: 10px 5px;
+}
+
+.slide-in-view .slide-header span:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.slide-in-view .slide-content {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    padding: 5px;
+}
+
+.slide-in-view .slide-content .desc {
+    height: 100%;
+    width: 50%;
+    border-radius: 5px;
+    
+    background-color: ;
+
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0px 10px;
+    padding: 5px;
+}
+
+.slide-in-view .slide-content img {
+    height: 100%;
+    width: 50%;
+    border-radius: 5px;
+}
+
+
+
+
+
+
