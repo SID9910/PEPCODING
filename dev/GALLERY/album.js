@@ -1,4 +1,3 @@
-                        //  6,12,13 MARCH
 (function(){
     let saveAlbum = document.querySelector("#saveAlbum");
     let addAlbum = document.querySelector("#addAlbum");
@@ -26,6 +25,7 @@
     newSlide.addEventListener("click", handleNewSlideClick);
     btnSaveSlide.addEventListener("click", handleSaveSlide);
     saveAlbum.addEventListener("click", saveToLocalStorage);
+    deleteAlbum.addEventListener("click",handleDeleteAlbum);
 
     function handleAddAlbum(){
         let albumName = prompt("Enter a name for the new album");
@@ -95,6 +95,10 @@
 
     }
 
+    function handleDeleteAlbum(){
+        
+    }
+
     function handleNewSlideClick(){
         overlay.style.display = "none";
         contentDetailsOverlay.style.display = "none";
@@ -144,8 +148,8 @@
         slideInView.querySelector(".title").innerHTML = this.querySelector(".title").innerHTML;
         slideInView.querySelector(".desc").innerHTML = this.querySelector(".desc").innerHTML;
         slideInView.querySelector("img").setAttribute("src", this.querySelector("img").getAttribute("src"));
-        // slideInView.querySelector("[purpose=edit]").addEventListener("click", handleEditSlideClick);
-        // slideInView.querySelector("[purpose=delete]").addEventListener("click", handleDeleteSlideClick);
+        slideInView.querySelector("[purpose=edit]").addEventListener("click", handleEditSlideClick);
+        slideInView.querySelector("[purpose=delete]").addEventListener("click", handleDeleteSlideClick);
 
         showSlide.append(slideInView);
 
@@ -159,32 +163,32 @@
         }
     }
 
-    // function handleEditSlideClick(){
-    //     alert("edit");
-    // }
+    function handleEditSlideClick(){
+        alert("edit");
+    }
 
-    // function handleDeleteSlideClick(){
-    //     let album = albums.find(a => a.name == selectAlbum.value);
-    //     let sidx = album.slides.findIndex(s => s.selected == true);
+    function handleDeleteSlideClick(){
+        let album = albums.find(a => a.name == selectAlbum.value);
+        let sidx = album.slides.findIndex(s => s.selected == true);
 
-    //     let slideDivTBD;
-    //     for(let i = 0; i < slideList.children.length; i++){
-    //         let slideDiv = slideList.children[i];
-    //         if(slideDiv.querySelector(".title").innerHTML == album.slides[sidx].title){
-    //             slideDivTBD = slideDiv;
-    //             break;
-    //         }
-    //     }
+        let slideDivTBD;
+        for(let i = 0; i < slideList.children.length; i++){
+            let slideDiv = slideList.children[i];
+            if(slideDiv.querySelector(".title").innerHTML == album.slides[sidx].title){
+                slideDivTBD = slideDiv;
+                break;
+            }
+        }
 
-    //     slideList.removeChild(slideDivTBD);
+        slideList.removeChild(slideDivTBD);
 
-    //     album.slides.splice(sidx, 1);
+        album.slides.splice(sidx, 1);
 
-    //     overlay.style.display = "none";
-    //     contentDetailsOverlay.style.display = "block";
-    //     createSlide.style.display = "none";
-    //     showSlide.style.display = "none";
-    // }
+        overlay.style.display = "none";
+        contentDetailsOverlay.style.display = "block";
+        createSlide.style.display = "none";
+        showSlide.style.display = "none";
+    }
 
     function saveToLocalStorage(){
         let json = JSON.stringify(albums); // used to convert jso to a json string which can be saved
