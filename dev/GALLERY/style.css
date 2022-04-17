@@ -69,6 +69,35 @@ body {
 }
 
 
+#play-overlay {
+    position: fixed;
+    height: 92vh;
+    width: 100vw;
+    top:8vh;
+    left:0%;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 2;
+    cursor: pointer;
+    display: none;
+}
+#play-overlay #text {
+    position: absolute;
+    font-size: 30px;
+    color: rgb(14, 6, 27);
+    width: 50%;
+    top:-5%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    
+    /* vertically aligning text within div*/
+    line-height: 100px;
+    vertical-align:middle;
+
+    text-align: center; /*horizontally align text within this div*/
+    text-decoration: underline;
+  
+}
 
 #overlay {
     position: fixed;
@@ -273,6 +302,10 @@ body {
     border-radius: 5px;
 }
 
+
+#uploadFile{
+    display: none;
+}
 
 
 

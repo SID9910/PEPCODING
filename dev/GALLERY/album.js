@@ -1,3 +1,4 @@
+                            //    6,12,13 MARCH 
 (function(){
     let saveAlbum = document.querySelector("#saveAlbum");
     let addAlbum = document.querySelector("#addAlbum");
@@ -8,6 +9,7 @@
     let selectAlbum = document.querySelector("#selectAlbum");
     let allTemplates = document.querySelector("#allTemplates");
     let overlay = document.querySelector("#overlay");
+    let playoverlay = document.querySelector("#play-overlay");
     let contentDetailsOverlay = document.querySelector("#content-details-overlay");
     let newSlide = document.querySelector("#new-slide");
     let createSlide = document.querySelector("#create-slide");
@@ -17,6 +19,7 @@
     let txtSlideTitle = document.querySelector("#txtSlideTitle");
     let slideList = document.querySelector("#slide-list");
     let txtSlideDesc = document.querySelector("#txtSlideDesc");
+    let uploadFile = document.querySelector("#uploadFile");
 
     let albums = [];
 
@@ -25,8 +28,43 @@
     newSlide.addEventListener("click", handleNewSlideClick);
     btnSaveSlide.addEventListener("click", handleSaveSlide);
     saveAlbum.addEventListener("click", saveToLocalStorage);
-    deleteAlbum.addEventListener("click",handleDeleteAlbum);
+    deleteAlbum.addEventListener("click", handleDeleteAlbum);
+    exportAlbum.addEventListener("click", handleExportAlbum);
+    
 
+    importAlbum.addEventListener("click", function(){
+        uploadFile.click();
+    });
+
+    uploadFile.addEventListener("change", handleImportAlbum);
+    playAlbum.addEventListener("click",handlePlayAlbum);
+
+    function handlePlayAlbum(){
+        if(selectAlbum.value == "-1"){
+            alert("Select an album to delete");
+            return;
+        }
+        playoverlay.style.display = "block";
+        playoverlay.querySelector("#text").innerHTML = "playing Album ....";
+
+        let album = albums.find(a => a.name == selectAlbum.value);
+
+        
+        let i=0;
+        let id = setInterval(function(){
+    if(i<album.slides.length){        
+slideList.children[i].click();
+playoverlay.querySelector("#text").innerHTML = "SHOWING SLIDES..." +( i + 1);
+i++;
+    }else if(i == album.slides.length){
+    clearInterval(id);
+    playoverlay.style.display = "none";
+    return;
+}
+        },700)
+
+
+    }
     function handleAddAlbum(){
         let albumName = prompt("Enter a name for the new album");
         if(albumName == null){
@@ -68,6 +106,8 @@
             contentDetailsOverlay.style.display = "none";
             createSlide.style.display = "none";
             showSlide.style.display = "none";
+
+            slideList.innerHTML = "";
         } else {
             overlay.style.display = "none";
             contentDetailsOverlay.style.display = "block";
@@ -96,7 +136,69 @@
     }
 
     function handleDeleteAlbum(){
-        
+        if(selectAlbum.value == "-1"){
+            alert("Select an album to delete");
+            return;
+        }
+
+        let aidx = albums.findIndex(a => a.name == selectAlbum.value);
+        albums.splice(aidx, 1);
+
+        selectAlbum.remove(selectAlbum.selectedIndex);
+
+        selectAlbum.value = "-1";
+        selectAlbum.dispatchEvent(new Event("change"));
+    }
+
+    function handleExportAlbum(){
+        if(selectAlbum.value == "-1"){
+            alert("Select an album to export");
+            return;
+        }
+
+        let album = albums.find(a => a.name == selectAlbum.value);
+        let ajson = JSON.stringify(album);
+        let encodedJson = encodeURIComponent(ajson);
+
+        let a = document.createElement("a");
+        a.setAttribute("download", album.name + ".json");
+        a.setAttribute("href", "data:text/json; charset=utf-8, " + encodedJson);
+
+        a.click();
+    }
+
+    function handleImportAlbum(){
+        if(selectAlbum.value == "-1"){
+            alert("Select an album to import data");
+            return;
+        }
+
+        let file = window.event.target.files[0]; 
+        let reader = new FileReader();
+        reader.addEventListener("load", function(){
+            let data = window.event.target.result;
+            let importedAlbum = JSON.parse(data);
+            
+            let album = albums.find(a => a.name == selectAlbum.value);
+            album.slides = album.slides.concat(importedAlbum.slides);
+
+            slideList.innerHTML = "";
+            for(let i = 0; i < album.slides.length; i++){
+                let slideTemplate = allTemplates.content.querySelector(".slide");
+                let slide = document.importNode(slideTemplate, true);
+
+                slide.querySelector(".title").innerHTML = album.slides[i].title;
+                slide.querySelector(".desc").innerHTML = album.slides[i].desc;
+                slide.querySelector("img").setAttribute("src", album.slides[i].url);
+                slide.addEventListener("click", handleSlideClick);
+
+                album.slides[i].selected = false;
+
+                slideList.append(slide);
+            }
+        });
+
+        reader.readAsText(file);
     }
 
     function handleNewSlideClick(){
@@ -108,6 +210,8 @@
         txtSlideImage.value = "";
         txtSlideTitle.value = "";
         txtSlideDesc.value = "";
+
+        btnSaveSlide.setAttribute("purpose", "create");
     }
 
     function handleSaveSlide(){
@@ -115,24 +219,50 @@
         let title = txtSlideTitle.value;
         let desc = txtSlideDesc.value;
 
-        let slideTemplate = allTemplates.content.querySelector(".slide");
-        let slide = document.importNode(slideTemplate, true);
+        if(this.getAttribute("purpose") == "create"){
+            let slideTemplate = allTemplates.content.querySelector(".slide");
+            let slide = document.importNode(slideTemplate, true);
 
-        slide.querySelector(".title").innerHTML = title;
-        slide.querySelector(".desc").innerHTML = desc;
-        slide.querySelector("img").setAttribute("src", url);
-        slide.addEventListener("click", handleSlideClick);
+            slide.querySelector(".title").innerHTML = title;
+            slide.querySelector(".desc").innerHTML = desc;
+            slide.querySelector("img").setAttribute("src", url);
+            slide.addEventListener("click", handleSlideClick);
 
-        slideList.append(slide);
-        slide.dispatchEvent(new Event("click"));
+            slideList.append(slide);
 
-        let album = albums.find(a => a.name == selectAlbum.value);
-        album.slides.push({
-            title: title,
-            url: url,
-            desc: desc
-        });
+            let album = albums.find(a => a.name == selectAlbum.value);
+            album.slides.push({
+                title: title,
+                url: url,
+                desc: desc
+            });
+
+            slide.dispatchEvent(new Event("click"));
+        } else {
+            let album = albums.find(a => a.name == selectAlbum.value);
+            let slideToUpdate = album.slides.find(s => s.selected == true);
+
+            let slideDivToUpdate;
+            for(let i = 0; i < slideList.children.length; i++){
+                let slideDiv = slideList.children[i];
+                if(slideDiv.querySelector(".title").innerHTML == slideToUpdate.title){
+                    slideDivToUpdate = slideDiv;
+                    break;
+                }
+            }
+
+            slideDivToUpdate.querySelector(".title").innerHTML = title;
+            slideDivToUpdate.querySelector(".desc").innerHTML = desc;
+            slideDivToUpdate.querySelector("img").setAttribute("src", url);
+
+            slideToUpdate.url = url;
+            slideToUpdate.title = title;
+            slideToUpdate.desc = desc;
+
+            slideDivToUpdate.dispatchEvent(new Event("click"));
+        }
     }
+
 
     function handleSlideClick(){
         overlay.style.display = "none";
@@ -164,7 +294,19 @@
     }
 
     function handleEditSlideClick(){
-        alert("edit");
+        overlay.style.display = "none";
+        contentDetailsOverlay.style.display = "none";
+        createSlide.style.display = "block";
+        showSlide.style.display = "none";
+
+        let album = albums.find(a => a.name == selectAlbum.value);
+        let slide = album.slides.find(s => s.selected == true);
+
+        txtSlideImage.value = slide.url;
+        txtSlideTitle.value = slide.title;
+        txtSlideDesc.value = slide.desc;
+
+        btnSaveSlide.setAttribute("purpose", "update");
     }
 
     function handleDeleteSlideClick(){
