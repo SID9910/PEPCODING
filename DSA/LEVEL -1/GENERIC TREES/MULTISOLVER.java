@@ -1,10 +1,4 @@
 
-//are trees mirror
-public static boolean areMirror(Node n1, Node n2) {
-    if(n1.children.size()!=n2.children.size()){
-    return false;
-  }
-
   //way-1
 
 Static int sum=0;
