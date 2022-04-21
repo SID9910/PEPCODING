@@ -7,8 +7,8 @@ public class Main {
     public static int frequency(int n,int d){
         int freq=0;
         while(n!=0){
-            int digit =n%10;//digit ki last  ko compare karenge
-                            //given d se aagar same hua to freq ++karenge 
+            int digit =n%10;
+                            
             if(digit==d){
                 freq++;
             }

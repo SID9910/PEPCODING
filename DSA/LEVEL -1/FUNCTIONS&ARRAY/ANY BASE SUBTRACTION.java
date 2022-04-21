@@ -13,11 +13,11 @@ import java.util.*;
    }
   
    public static int getDifference(int b, int n1, int n2){
-   //given n2>n1 
-   int borrow=0;//isme carry ki jagah borrow lete hai
+   
+   int borrow=0;
    int multiplier=1;
    int res=0;
-   while(n2>0){//n1 =0 hua koi ferk nhi padega bss n2 zero hote he band ho jaega 
+   while(n2>0){ 
        int d1=n1%10;
        int d2=n2%10;
        int temp=d2-d1+borrow;//imp
