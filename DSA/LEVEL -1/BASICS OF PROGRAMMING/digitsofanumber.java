@@ -9,7 +9,7 @@ import java.util.*;
         int temp=n;
         int count=0;
         while(temp!=0){
-            int rem=temp%10;
+        
             temp=temp/10;                    //count karega ye loop digits kitni hai
             count=count+1;
         }

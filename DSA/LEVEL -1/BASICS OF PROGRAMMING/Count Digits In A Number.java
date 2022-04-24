@@ -7,11 +7,9 @@ import java.util.*;
      int count=0;
      int n=scn.nextInt();
      while(n!=0){
-     
-     int rem=n%10;
-    
+ 
      n=n/10;
-     count=count+1;
+     count++;
      }
      System.out.println(count);
    }
