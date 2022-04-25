@@ -5,7 +5,7 @@
 
 import ReactDOM from 'react-dom';
 import React from 'react';
-import './index.css'
+import './index.css' ;
 
 class AddTask extends React.Component {
     //ye constructor har bar banana he padega
