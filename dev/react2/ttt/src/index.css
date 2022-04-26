@@ -9,5 +9,50 @@ body {
 #root {
     height: 100vh;
     width: 100vw;
-     background-color: red;
+     background-color: lightgrey;
+     display: flex;
+     flex-direction: row;
+}
+ .board {
+     height: 100%;
+     width: 50%;
+     
+ }
+
+ .display {
+    height: 100%;
+    width: 50%;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    height: 10%;
+    width: 100%;
+    border: 3px solid black;
+    text-align: center;
+    font-size: 50px;
+    color: rgb(16, 15, 15);
+    background-color: rgb(191, 121, 121);
+}
+.content {
+    height: 90%;
+    width: 100%;
+    border: 3px solid black;
+}
+
+.ttt {
+    height: 75%;
+    width: 75%;
+    border: 3px solid white;
+    margin: 75px auto;
+    border-radius: 5px;
+}
+.history {
+    height: 75%;
+    width: 75%;
+    border: 3px solid white;
+    margin: 75px auto;
+    border-radius: 5px;
 }

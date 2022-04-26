@@ -8,15 +8,61 @@ import React from 'react';
 import './index.css' ;
 
 
+class Board extends React.Component {
+  render(){
+    return (
+      <div className='board'>
+  <div className='title'>
+    TIC TAK TOE
+
+  </div>
+
+  <div className='content'>
+    <div className='ttt'>
+
+    </div>
+
+  </div>
+
+
+      </div>
+    );
+  }
+}
+
+class Display extends React.Component {
+  render(){
+let gameStatus = 'Next move for X' ;
+
+
+    return (
+
+      <div className='display'>
+      <div className='title'>
+         {gameStatus}
+      </div>
+       <div className='content'>
+         <div className='history'>
+
+         </div>
+
+  </div>
+      
+      </div>
+    );
+  }
+}
+
 class TTT extends React.Component {
 
-
-     
-    render(){
+ render(){
      
 
        return (
-         <div>hello world</div>
+        <>
+           <Board />
+           <Display />
+        </>
        );
     }
 }
