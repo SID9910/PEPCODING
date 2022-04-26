@@ -5,24 +5,41 @@
 
 import ReactDOM from 'react-dom';
 import React from 'react';
-import './index.css' ;
+import './index.css';
 
 
 class Board extends React.Component {
-  render(){
+  render() {
     return (
       <div className='board'>
-  <div className='title'>
-    TIC TAK TOE
+        <div className='title'>
+          TIC TAK TOE
 
-  </div>
+        </div>
 
-  <div className='content'>
-    <div className='ttt'>
+        <div className='content'>
+          <div className='ttt'>
 
-    </div>
+            <div className='row'>
+              <button></button>
+              <button></button>
+              <button></button>
+            </div>
 
-  </div>
+            <div className='row'>
+              <button></button>
+              <button></button>
+              <button></button>
+            </div>
+            <div className='row'>
+              <button></button>
+              <button></button>
+              <button></button>
+            </div>
+
+          </div>
+
+        </div>
 
 
       </div>
@@ -31,23 +48,24 @@ class Board extends React.Component {
 }
 
 class Display extends React.Component {
-  render(){
-let gameStatus = 'Next move for X' ;
+  render() {
+    let gameStatus = 'Next move for X';
 
 
     return (
 
       <div className='display'>
-      <div className='title'>
-         {gameStatus}
-      </div>
-       <div className='content'>
-         <div className='history'>
+        <div className='title'>
+          {gameStatus}
+        </div>
+        <div className='content'>
+          <div className='history'>
+            <button>Go to start</button>
 
-         </div>
+          </div>
 
-  </div>
-      
+        </div>
+
       </div>
     );
   }
@@ -55,23 +73,23 @@ let gameStatus = 'Next move for X' ;
 
 class TTT extends React.Component {
 
- render(){
-     
+  render() {
 
-       return (
-        <>
-           <Board />
-           <Display />
-        </>
-       );
-    }
+
+    return (
+      <>
+        <Board />
+        <Display />
+      </>
+    );
+  }
 }
- //ye line hamesha likhni he padegi
+//ye line hamesha likhni he padegi
 ReactDOM.render(<TTT />, document.getElementById("root"));
 
 
 
 
 
-    
+
 
