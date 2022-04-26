@@ -9,6 +9,15 @@ import './index.css';
 
 
 class Board extends React.Component {
+  handleBoxClick(i){
+    this.props.handlerForBoxClick(i);
+
+  }
+  renderSquare(i){
+    return(
+    <button onClick={() => this.handleBoxClick(i)}>{this.props.boxes[i] == null? "": this.props.boxes[i]}</button>
+    );
+  }
   render() {
     return (
       <div className='board'>
@@ -21,20 +30,20 @@ class Board extends React.Component {
           <div className='ttt'>
 
             <div className='row'>
-              <button></button>
-              <button></button>
-              <button></button>
+          {this.renderSquare(0)}
+          {this.renderSquare(1)}
+          {this.renderSquare(2)}
             </div>
 
             <div className='row'>
-              <button></button>
-              <button></button>
-              <button></button>
+            {this.renderSquare(3)}
+            {this.renderSquare(4)}
+            {this.renderSquare(5)}
             </div>
             <div className='row'>
-              <button></button>
-              <button></button>
-              <button></button>
+            {this.renderSquare(6)}
+            {this.renderSquare(7)}
+            {this.renderSquare(8)}
             </div>
 
           </div>
@@ -72,13 +81,27 @@ class Display extends React.Component {
 }
 
 class TTT extends React.Component {
+   constructor(props) {
+     super(props);
 
+     this.state = {
+       history : [
+         [null, null, null, null, null, null, null, null, null]
+       ],
+       stepNumber: 0,
+       gameStatus: null
+     }
+   }
+
+   handleSquareClick(i) {
+     alert(i);
+   }
   render() {
 
-
+  let squares = this.state.history[this.state.history.length - 1];
     return (
       <>
-        <Board />
+        <Board handlerForBoxClick={(i) => this.handleSquareClick(i)} boxes={squares}/>
         <Display />
       </>
     );
