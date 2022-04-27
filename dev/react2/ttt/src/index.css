@@ -67,14 +67,14 @@ body {
 .row button {
 width: 100%;
 cursor: pointer;
+font-size: 120px; 
 
 
 }
 .row button:hover{
     background-color:aquamarine ;
     box-shadow: 5px 7px 7px black;
-    
-    }
+      }
 
 /* ye content of display ke ander ka box banane ka tarika  */
 .history {
