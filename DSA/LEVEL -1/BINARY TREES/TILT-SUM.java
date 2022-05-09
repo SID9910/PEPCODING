@@ -90,7 +90,7 @@ public class Main {
     int th = Math.max(lh, rh) + 1;
     return th;
   }
-
+//approach-1
   static int tilt = 0;
   public static int tilt(Node node){
     if(node == null){
@@ -106,6 +106,28 @@ public class Main {
     return sum;
   }
 
+  //approach-2
+static class TiltPair{
+  int sum=0;
+  int tiltsum =0;
+}
+public static TiltPair tilt2(Node node){
+  if(node == null){
+    TiltPair bs =new TiltPair();
+  
+    return bs;
+  }
+    TiltPair leftSum =tilt2(node.left);
+    TiltPair rightSum =tilt2(node.right);
+
+    TiltPair mp =new   TiltPair();
+  mp.sum = leftSum.sum+rightSum.sum+node.data;
+  mp.tiltsum = leftSum.tiltsum +rightSum.tiltsum+Math.abs(leftSum.sum -rightSum.sum) ;
+
+  return mp;
+
+
+} 
   public static void main(String[] args) throws Exception {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     int n = Integer.parseInt(br.readLine());
@@ -121,8 +143,11 @@ public class Main {
 
     Node root = construct(arr);
 
-    tilt(root);
-    System.out.println(tilt);
+    // tilt(root);
+    // System.out.println(tilt);
+    TiltPair  p =tilt2(root);
+System.out.print(p.tiltsum);
+
   }
 
 }
