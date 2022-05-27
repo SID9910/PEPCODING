@@ -1,6 +1,6 @@
 
 
-//duabra eek bar or
+//duabra eek bar or karo bhi
 class Solution {
     public boolean isSymmetric(TreeNode root) {
          return ismirror(root.left,root.right);
