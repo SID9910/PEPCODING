@@ -1,5 +1,6 @@
 
 class Solution {
+    //pure tree main nodes count karni hai
     //     public int countNodes(TreeNode root) {
     //       if(root ==null){
     //           return 0;
