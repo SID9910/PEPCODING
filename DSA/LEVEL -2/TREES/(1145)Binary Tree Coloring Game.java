@@ -1,18 +1,4 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
+
 class Solution {
     //question- hum player1 and player2 ke pass check karna chahenge ki kaun jada nodes cover //kar sakta hai and players bss aapni adjacent node per he ja sakte hai size ke ley
     //jisne akhri main jada subree ka size ghera hua hoga vo jeet jaega
