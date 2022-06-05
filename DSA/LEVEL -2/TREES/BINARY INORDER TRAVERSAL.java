@@ -1,6 +1,7 @@
 
 
 class Solution {
+    //inorder traversal
 //   approach-1
     //  ArrayList<Integer> list;
     // ArrayList<Integer> inOrder(Node root) {
