@@ -1,6 +1,6 @@
 
 class Solution {
-    //main code 
+    //main code hai
     List<Integer> list;
     public List<Integer> postorderTraversal(TreeNode root) {
  list =new ArrayList<>();
