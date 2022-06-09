@@ -1,0 +1,48 @@
+<!--page-4  -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react is a ui manipulation (logic)library -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <!-- frontent dom -->
+    <!-- react ->Dom ->website ke ander react lib ki help se actual changes lao -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- babel convert jsx to js -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<!-- //mutiple component return karna -->
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+   function Counter() {
+       //jo bhi data change karna hai -> react.useState(initialvalue of that data ) -> return
+       //variable -> data ,function is also given that will change the variable
+       let[count ,changeCount] =React.useState(0);
+       let increment = () => {
+           changeCount(count+1);
+       }
+       let decrement = () => {
+           changeCount(count-1);
+       }
+       return (
+           <div>
+            <button onClick={increment}>+</button>
+            <p>Count : {count}</p>
+            <button onClick={decrement}>-</button>
+            </div>
+       )
+   }
+  
+
+        ReactDOM.render(<Counter></Counter>, document.querySelector('#root'));
+    //bottom to top
+    </script>
+</body>
+
+</html>

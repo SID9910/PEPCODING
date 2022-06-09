@@ -1,0 +1,45 @@
+<!--page-3  -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react is a ui manipulation (logic)library -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <!-- frontent dom -->
+    <!-- react ->Dom ->website ke ander react lib ki help se actual changes lao -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- babel convert jsx to js -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<!-- //mutiple component return karna -->
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+//props basically property or data pass karne ko kehte hai
+        function Hello(props) {
+    let name =props.name
+    //curly braces ke use se kisi bhi html main dynamic behaviour add kar sakte hai
+            return <h1> hello react {name} </h1>
+        }
+        function Hellos() {
+            return <div>
+                <Hello name={"sid"}></Hello>
+                <Hello name ={"rocky"}></Hello>
+                <Hello name={"jerry"}></Hello>
+                <Hello name={"pratham"}></Hello>
+
+            </div>
+        }
+
+
+        ReactDOM.render(<Hellos></Hellos>, document.querySelector('#root'));
+                                                //bottom to top
+    </script>
+</body>
+
+</html>

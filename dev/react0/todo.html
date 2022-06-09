@@ -1,0 +1,63 @@
+<!--page-6 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react is a ui manipulation (logic)library -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <!-- frontent dom -->
+    <!-- react ->Dom ->website ke ander react lib ki help se actual changes lao -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- babel convert jsx to js -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>\
+    <!-- to bring data from some where else -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
+</head>
+<!-- //mutiple component return karna -->
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+       
+       
+       function InputBox() {
+            return (<div>
+                <input type ="text" name="" id="" />
+                <button>Add task</button>
+                </div>)
+        }
+
+//    basically array main se usState ki help se value change karenege dynamically     
+
+        function ListItems() {
+
+            let [tasks, updatetasks] = React.useState([]);
+        // <!--ye map function basically for loop he hote hai array ki values lane main help karega -->
+            return (
+                <ul>
+                {
+                       tasks.map(function (task){
+                           return <li>{task}</li>
+                       })
+                    }
+                
+                </ul>)
+        }
+        function Todo() {
+            return (<div>
+                <h1> Todo App </h1>
+                <InputBox></InputBox>
+                <ListItems></ListItems>
+                </div>)
+        }
+  
+        ReactDOM.render(<Todo></Todo>, document.querySelector('#root'));
+    //bottom to top
+    </script>
+</body>
+
+</html>

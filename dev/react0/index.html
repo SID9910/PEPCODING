@@ -1,0 +1,35 @@
+                                     <!-- //9th april page-1 -->
+                                     <!-- //react follow bottom to top  approach -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react is a ui manipulation (logic)library -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <!-- frontent dom -->
+    <!-- react ->Dom ->website ke ander react lib ki help se actual changes lao -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- babel convert jsx to js -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        //babel convert jsx to js
+        //react code
+        //jsx ->javascript+html
+        //component
+        function Hello() {
+            return <h1> hello react </h1>
+        }
+        //yeh reactdom kaam ye karega ki hello function lega and uska html lekar root main daal dega and 
+        //fhir root main aaajega hello function
+        // reactDOM changes karta hai dom website per
+        ReactDOM.render(<Hello></Hello> , document.querySelector('#root'));
+        //bottom to top
+    </script>
+</body>
+</html>

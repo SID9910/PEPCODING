@@ -1,0 +1,59 @@
+<!--page-5  -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react is a ui manipulation (logic)library -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <!-- frontent dom -->
+    <!-- react ->Dom ->website ke ander react lib ki help se actual changes lao -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- babel convert jsx to js -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>\
+    <!-- to bring data from some where else -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
+</head>
+<!-- //mutiple component return karna -->
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+   let useEffect = React.useEffect;
+   function DelayedLoading() {
+       let [data ,setData] =React.useState("");
+       console.log("before");
+       //it will run the fn when the ui is printed
+       //useEffect baiscally eek function hai jaise manlo koi site jaab load hoti hai 
+       //usme jo data aaram se aata hai means load hota hai to useEffect function taab use hote
+       //hai data load main jitna time lagta hai taab aaise useEffect fn use hote hai
+       //pehle return chalega fhir ye fn chalega baad main
+       React.useEffect( async function (){
+           console.log("after in useEffect");
+           //data lane ke ley await use karte hai async function main
+           //data
+           //authentication
+           //time taking work is done here
+           //idher se data utha rahe hai hum axios ki site se console main
+           let resp = await axios.get("https://jsonplaceholder.typicode.com/todos/1");
+           let respData =resp.data;
+        //  console.log(data);
+        //setData(JSON.stringify(respData)); pure data laane ke ley
+        setData(respData.title);
+       },[]);
+       return (
+       <div>
+        <h1>DelayedLoading Example </h1>
+        {data == "" ? <p>Loading....</p> : <p>{data} </p>}
+           </div>
+       )
+    }
+        ReactDOM.render(<DelayedLoading></DelayedLoading>, document.querySelector('#root'));
+    //bottom to top
+    </script>
+</body>
+
+</html>
