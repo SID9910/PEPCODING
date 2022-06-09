@@ -23,10 +23,18 @@
     <div id="root"></div>
     <script type="text/babel">
        
-       
+    //    basically react main hum input direct tag banakar nhi dete 
+    //hum useState ki help se component ki form main input dete hai
+    //ye react main method hota hai aaise input dene ka 
        function InputBox() {
+        //    ye jab bhi onchange karenge target main value jaegi fhir uper usestate main update ho jaegi 
+        //aaise karte hai input main react main 
+           let [cValue, setValue] = React.useState("");
+           const setInputData = function (e) {
+               setValue(e.target.value);
+           }
             return (<div>
-                <input type ="text" name="" id="" />
+                <input type ="text"  value={cValue} onChange={setInputData} />
                 <button>Add task</button>
                 </div>)
         }
