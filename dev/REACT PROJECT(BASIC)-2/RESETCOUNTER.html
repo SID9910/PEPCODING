@@ -1,4 +1,4 @@
-<!--page-6 -->
+<!            april-9 ,10 -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,24 +26,31 @@
     //    basically react main hum input direct tag banakar nhi dete 
     //hum useState ki help se component ki form main input dete hai
     //ye react main method hota hai aaise input dene ka 
-       function InputBox() {
+       function InputBox(props) {
         //    ye jab bhi onchange karenge target main value jaegi fhir uper usestate main update ho jaegi 
         //aaise karte hai input main react main 
            let [cValue, setValue] = React.useState("");
            const setInputData = function (e) {
                setValue(e.target.value);
            }
+
+           //ye addtask per jab click hoga taab chalega onchange per 
+           const addTask = function () {
+               console.log("currenttask: " + cValue);
+               //is se add task sidha todo main main jaega parent hai kyuki todo
+               props.parentGettask(cValue);
+           }
             return (<div>
                 <input type ="text"  value={cValue} onChange={setInputData} />
-                <button>Add task</button>
+                <button onClick={addTask}>Add Task</button>
                 </div>)
         }
 
 //    basically array main se usState ki help se value change karenege dynamically     
 
-        function ListItems() {
-
-            let [tasks, updatetasks] = React.useState([]);
+        function ListItems(props) {
+            let tasks =props.tasks;
+            
         // <!--ye map function basically for loop he hote hai array ki values lane main help karega -->
             return (
                 <ul>
@@ -56,10 +63,30 @@
                 </ul>)
         }
         function Todo() {
+            //lifting the state up
+            //hoga kya jaab parent main input aajega taab ye task main jakar update ho jaegi usestate ki help se
+            let [tasks, updatetasks] = React.useState([]);
+     
+     //is get function se input Ajaega isme and tranfer bhi hoga update task main 
+            const getTask = (currentTask) => {
+                console.log("in todo component" + currentTask);
+               
+               //new task main saare task aajaenge and fhir usse updateTask main daal denge 
+                //1.spread operator-> 1 levelll deep copy
+               
+                let newtasksArr = [...tasks];
+                newtasksArr.push(currentTask);
+                updatetasks(newtasksArr);
+         //2.
+         //let newTasksArr =[];
+        //  for(let i=0 ;i<tasks.length ;i++){
+        //      newtasksArr.push(arr[i]);
+        //  }
+            }
             return (<div>
                 <h1> Todo App </h1>
-                <InputBox></InputBox>
-                <ListItems></ListItems>
+                <InputBox parentGettask={getTask}></InputBox>
+                <ListItems tasks={tasks}></ListItems>
                 </div>)
         }
   
