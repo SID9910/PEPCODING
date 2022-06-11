@@ -7,13 +7,18 @@ class Solution
         if(root.left!=null && root.right!=null){
             int left =maxPathSum(root.left);
             int right =maxPathSum(root.right);
-            return Math.max(left,right)+root.data;
+            int left_dash =Math.max(0,left);
+            int right_dash =Math.max(0,right);
+            return Math.max(left_dash,right_dash)+root.data;
         }else if(root.left!=null){
          int left =maxPathSum(root.left);
-         return left+root.data;
+         int left_dash =Math.max(0,left);
+         return left_dash+root.data;
+         
         }else if(root.right!=null){
             int right =maxPathSum(root.right);
-        return right+root.data;
+            int right_dash =Math.max(0,right);
+        return right_dash+root.data;
             
         }else{
             return root.data;
