@@ -20,6 +20,8 @@ class Node {
     }
 };
 */
+//117 code is also valid here
+//for perfect binary tree
 
 class Solution {
     public Node connect(Node root) {
