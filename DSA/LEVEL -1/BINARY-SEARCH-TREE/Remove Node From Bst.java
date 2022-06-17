@@ -92,10 +92,12 @@ public class Main {
     }
  if(data>node.data){
    node.right = remove(node.right ,data);
+   return node;
 
  }
  else if(data<node.data){
    node.left = remove(node.left ,data);
+   return node;
  }
  else{
   if(node.left ==null && node.right == null){
@@ -114,7 +116,7 @@ public class Main {
    return node;
   }
  }
-return node;
+ 
   }
 
   public static void main(String[] args) throws Exception {
