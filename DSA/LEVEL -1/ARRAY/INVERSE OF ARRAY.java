@@ -17,7 +17,8 @@ public class Main{
     for(int i=0;i<n;i++){
         int j=a[i];  //pehle a[i]ki value j main store kardi
         b[j]=i;// vo j ki value index bna do b ka and i index store kar do us vale per
-    }
+    j++;
+      }
     return b; //return pura array kardo
   }
 
