@@ -7,7 +7,7 @@ class Solution {
         //ye  kaam karega jha per element last aaaya hai usse dalne main
         for(int i=0;i<s.length();i++){
             char ch =s.charAt(i);//character nikalo
-            map[ch-'a'] =i;
+            map[ch-'a'] =i;//is se indexing ho jaegi 0 se
             
         }
         //two pointer bna do
